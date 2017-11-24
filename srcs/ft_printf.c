@@ -12,7 +12,19 @@
 
 #include "libftprintf.h"
 
-void bulid_bag(t_flags *flag_bag)
+void	print(int start, int end, char *format)
+{
+	while (start < end)
+		ft_putchar(format[start++]);
+}
+
+void	print_argument(t_flags flag_bag)
+{
+	
+	
+}
+
+void	bulid_bag(t_flags *flag_bag)
 {
 	flag_bag.minus = false;
 	flag_bag.plus = false;
@@ -20,19 +32,9 @@ void bulid_bag(t_flags *flag_bag)
 	flag_bag.hash = false;
 	flag_bag.zero = false;
 	flag_bag.type = NULL;
-}
-
-
-int	check_type(char type, t_flags *flag_bag)
-{
-	if (type == 'd' || type == 's' || type == 'S' || type == 'p' || type == 'D' ||
-		type == 'i' || type == 'o' || type == 'O' || type == 'u' || type == 'X' ||
-		type == 'U' || type == 'x' || type == 'c' || type == 'C')
-	{
-		flag_bag.type = type;
-		return (1);
-	}
-	return (0);
+	flag_bag.widht = 0;
+	flag_bag.precision = 0;
+	flag_bag.argument = 0;
 }
 
 void	flags(char *f, int *i, t_flags *flag_bag)
@@ -108,6 +110,42 @@ void	precision(char *f, int *i, t_flags *flag_bag, va_list ap)
 	}
 }
 
+/*
+** flag_bag.argument may egual:
+** - 1 if h appears;
+** - 2 if hh appears;
+** - 3 if l appears;
+** - 4 if ll appears;
+** - 5 if j appears;
+** - 6 if z appears;
+*/
+
+void	arguments(char *f, int *i, t_flags *flag_bag, va_list ap)
+{
+	while (f[*i] != '\0' && (f[*i] == 'h' || f[*i] == 'l' || f[*i] == 'z' || f[*i] == 'j'))
+	{
+		if (f[*i] == 'h' && flag_bag.argument == 1)
+			flag_bag.argument = 2;
+		
+		else if (f[*i] == 'h')
+			flag_bag.argument = 1;
+		
+		else if (f[*i] == 'l' && flag_bag.argument == 3)
+			flag_bag.argument = 4;
+		
+		else if (f[*i] == 'l')
+			flag_bag.argument = 3;
+		
+		else if (f[*i] == 'j')
+			flag_bag.argument = 5;
+		
+		else if (f[*i] == 'z')
+			flag_bag.argument = 6;
+		
+		*i += 1;
+	}
+}
+
 
 /*
 ** argument prototype: %[flags][width/margin][.precision][hh|h|l|ll|j|z]type
@@ -135,25 +173,25 @@ void	precision(char *f, int *i, t_flags *flag_bag, va_list ap)
 **					z: for idouxX - size_t;
 */
 
-void gather_flags(char *format, int *i, t_flags *flag_bag, va_list ap)
+void	type(char type, t_flags *flag_bag)
 {
-	while ((format[++*i] != '\0') && (check_type(format[*i], flag_bag)) == 0)
-	{
-		flags(format, i, flag_bag);
-		width(format, i, flag_bag, ap);
-		precision(format, i, flag_bag, ap);
-		
-		
-	}
-	
-	
+	if (type == 'd' || type == 's' || type == 'S' || type == 'p' || type == 'D' ||
+		type == 'i' || type == 'o' || type == 'O' || type == 'u' || type == 'X' ||
+		type == 'U' || type == 'x' || type == 'c' || type == 'C' || type == 'E' ||
+		type == 'e' || type == 'f' || type == 'F')
+		flag_bag.type = type;
 }
 
-void print(int start, int end, char *format)
+
+void gather_flags(char *format, int *i, t_flags *flag_bag, va_list ap)
 {
-	while (start < end)
-		ft_putchar(format[start++]);
+	flags(format, i, flag_bag);
+	width(format, i, flag_bag, ap);
+	precision(format, i, flag_bag, ap);
+	arguments(format, i, flag_bag, ap);
+	type(format[*i++], flag_bag));
 }
+
 
 void solve(char *format, va_list ap)
 {
@@ -170,8 +208,13 @@ void solve(char *format, va_list ap)
 			print(start, i, format);
 			bulid_bag(&flag_bag);
 			gather_flags(format, &i, &flag_bag, ap);
+			print_argument(&flag_bag)
+			start = i;
 		}
+		if (format[start] == '\0')
+			break;
 	}
+	print(start, i, format);
 }
 
 
