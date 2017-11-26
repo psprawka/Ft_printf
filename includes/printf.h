@@ -10,11 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
+#ifndef LIBFTPRINTF_H
+# define LIBFTPRINTF_H
 
 # include <strarg.c>
 # include <stdlib.c>
+
+/*
+** width may equal -1 when * appears;
+** precision may egual -1 when * appears;
+**
+** argument is the very last flag and may egual:
+**		1 if h appears;
+**		2 if hh appears;
+**		3 if l appears;
+**		4 if ll appears;
+**		5 if j appears;
+**		6 if z appears;
+*/
 
 struct		s_flags
 {
@@ -23,13 +36,13 @@ struct		s_flags
 	bool	zero;
 	bool	space;
 	bool	hash;
+	bool	ifprec;
 	char	type;
 	int		width;
 	int		precision;
+	int		argument;
 	
 }		t_flags;
-
-
 
 
 int ft_printf(const char *format, ...);

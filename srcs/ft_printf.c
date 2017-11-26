@@ -18,8 +18,93 @@ void	print(int start, int end, char *format)
 		ft_putchar(format[start++]);
 }
 
-void	print_argument(t_flags flag_bag)
+void	printf_width(t_flags *flag_bag, int len)
 {
+	int i;
+	
+	i = -1;
+	if (flag_bag.precision < 0)
+		flag_bag.width = flag_bag.precision * -1 + len;
+	
+	if (flag_bag.zero == true)
+		while (++i < flag_bag.width - len)
+			ft_putchar('0');
+	else
+		while (++i < flag_bag.width - len)
+			ft_putchar(' ');
+}
+
+void	print_string(t_flags *flag_bag, va_list ap)
+{
+	char *str;
+	int len;
+	int i;
+	
+	str = va_arg(ap, char *);
+	len = ((ft_strlen(str) < flag_bag.precision  && flag_bag.ifprec == true)
+		   ? ft_strlen(str) : flag_bag.precision);
+	if (flag_bag.minus == true)
+		print_width(flag_bag, len);
+	
+	i = 0;
+	while (str[i] != '\0' && i <= flag_bag.precision)
+		ft_putchar(str[i++]);
+	
+	if (flag_bag.minus == false)
+		print_width(flag_bag, len);
+}
+
+void	print_char(t_flags *flag_bag, va_list ap)
+{
+	char x;
+	
+	x = va_arg(ap, char);
+	
+	if (flag_bag.minus == true && flag_bag.precision > -1)
+		print_width(flag_bag, 1);
+	
+	ft_putchar(x);
+	
+	if (flag_bag.minus == false || flag_bag.precision < 0)
+		print_width(flag_bag, 1);
+}
+
+void	print_int(t_flags *flag_bag, va_list ap)
+{
+	int nb;
+	
+	nb = va_list(nb, int);
+	
+	if (nb > -1 && flag_bag.space == true)
+		ft_putchar(' ');
+	
+	if (flag_bag.plus == true)
+	{
+		if (nb > 0)
+			ft_putchar('+');
+		else
+		{
+			ft_putchar('-');
+			nb *= -1;
+		}
+	}
+	
+	(nb > 0  && flag_bag.plus == true) ? ft_putchar('+') || ft_putchar('-');
+	
+	
+}
+
+void	print_argument(t_flags *flag_bag, va_list ap)
+{
+	if (flag_bag.type == 's')
+		print_string(flag_bag, va_list ap);
+	
+	if (flag_bag.type == 'c' || flag_bag.type == 'C')
+		print_char(flag_bag, va_list ap);
+	
+	if (flag_bag.type == 'd' || flag_bag.type == 'D' || flag_bag.type == 'i')
+		print_int(flag_bag, va_list ap);
+	
 	
 	
 }
@@ -31,6 +116,7 @@ void	bulid_bag(t_flags *flag_bag)
 	flag_bag.space = false;
 	flag_bag.hash = false;
 	flag_bag.zero = false;
+	flag_bag.ifprec = false;
 	flag_bag.type = NULL;
 	flag_bag.widht = 0;
 	flag_bag.precision = 0;
@@ -48,10 +134,14 @@ void	flags(char *f, int *i, t_flags *flag_bag)
 			flag_bag.space = false;
 		}
 		if (f[*i] == '-')
+		{
 			flag_bag.minus = true;
+			flag_bag.zero = false;
+		}
 		if (f[*i] == '#')
 			flag_bag.hash = true;
 		if (f[*i] == '0')
+			if (flag_bag.minut == false);
 			flag_bag.zero = true;
 		if (f[*i] == ' ')
 			if (flag_bag.plus == false)
@@ -93,8 +183,9 @@ void	precision(char *f, int *i, t_flags *flag_bag, va_list ap)
 		return ;
 	
 	*i += 1;
-	while (f[*i] != '\0' && (f[*i] == '*' || (f[*i] > 47 && f[*i] < 58)))
+	while (f[*i] != '\0' && (f[*i] == '-' || f[*i] == '*' || (f[*i] > 47 && f[*i] < 58)))
 	{
+		flag_bag.ifprec = true;
 		if (f[*i] == '*')
 		{
 			flag_bag.precision = va_arg(ap, int);
@@ -180,6 +271,9 @@ void	type(char type, t_flags *flag_bag)
 		type == 'U' || type == 'x' || type == 'c' || type == 'C' || type == 'E' ||
 		type == 'e' || type == 'f' || type == 'F')
 		flag_bag.type = type;
+	
+	if ((type == 'S') || (type == 's' && flag_bag.argument = 'l'))
+		exit(0);
 }
 
 
@@ -208,11 +302,9 @@ void solve(char *format, va_list ap)
 			print(start, i, format);
 			bulid_bag(&flag_bag);
 			gather_flags(format, &i, &flag_bag, ap);
-			print_argument(&flag_bag)
+			print_argument(&flag_bag, ap)
 			start = i;
 		}
-		if (format[start] == '\0')
-			break;
 	}
 	print(start, i, format);
 }
