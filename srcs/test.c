@@ -193,8 +193,40 @@ int main()
 	
 	
 //	// rest:
-	printf("PRINTF: [%f] haha\n", -11.0);
-	ft_printf("FT_PRINTF: [%f] haha\n", -11.0);
+	int ret1 = 0, ret2 = 0;
+	
+	
+//	ret2 = ft_printf("MINE %05d", -42);
+//	ft_printf("05d : %05d\n", -42);
+//	ft_printf("010d : %++10d\n", -42);
+//	ft_printf("10d : %10d\n", -42);
+//	ft_printf("%05d", 42);
+//	printf(":		[%%]\n");
+//	printf(" :		[% %]\n");
+//	printf(".1:		[%.1%]\n");
+//	printf(".10:		[%.10%]\n");
+//	printf("-10:		[%-10%]\n");
+	printf("t: @main_ftprintf: %####00000 33..1..d\n", 256);
+	ft_printf("@main_ftprintf: %####00000 33..1..d\n", 256);
+//	ft_printf(" :		[% %]\n");
+//	ft_printf(".1:		[%.1%]\n");
+//	ft_printf(".10:		[%.10%]\n");
+//	ft_printf("-10:		[%-10%]\n");
+//	ft_printf(".0:		[%.0%]\n");
+//	printf("010d : %++10d\n", -42);
+//	printf("10d : %10d\n", -42);
+//	printf("+10d : %+010d\n", +42);
+//	printf("05d : %05d\n", -42);
+//	printf("05d : %05d\n", -42);
+//	ret1 = printf("-5:		[%-5%]\n");
+//	ret1 = printf(".-3:		[%+ .3%]\n");
+//	ret1 = printf("10:		[%010%]\n");
+//	ret1 = printf("# 10 .2:	[%#10.2%]\n");
+//	ret1 = printf("++:		[%++%]\n");
+//	ret2 = ft_printf("%%\n", 1.9900);
+//	printf("\n\n1: %d, 2: %d", ret1, ret2);
+	
+//	ft_printf("ret1: %d, ret2: %d\n", ret1, ret2);
 //	printf("PRINTF: [%.-7O] haha\n", 110);
 //	ft_printf("FT_PRINTF: [%+.-7O] haha new arg: [%s]\n", 110, "I'm working!");
 //	printf("PRINTF: [%-3.1d] haha\n", 0);
@@ -210,4 +242,24 @@ int main()
 //	printf("%d\n", atoi("123c"));
 	return (0);
 }
+
+//e1z2r8p24% lldb ./a.out
+//(lldb) target create "./a.out"
+//Current executable set to './a.out' (x86_64).
+//(lldb) b main
+//Breakpoint 1: where = a.out`main + 27 at test.c:196, address = 0x0000000100003eeb
+//(lldb) run
+//guiProcess 35647 launched: './a.out' (x86_64)
+//guiProcess 35647 stopped
+//* thread #1: tid = 0x29334, 0x0000000100003eeb a.out`main + 27 at test.c:196, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1
+//frame #0: 0x0000000100003eeb a.out`main + 27 at test.c:196
+//193
+//194
+//195 	//	// rest:
+//-> 196 		int ret1 = 0, ret2 = 0;
+//197
+//198 		ret1 = ft_printf("%d", -1);
+//199 	//	ret1 = printf("-5:		[%-5%]\n");
+//(lldb) gui
+//(lldb) quit
 

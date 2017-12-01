@@ -39,16 +39,16 @@
 typedef struct		s_flags
 {
 	bool	minus;
-	bool	plus;
 	bool	zero;
 	bool	space;
 	bool	hash;
 	bool	ifprec;
 	char	type;
+	bool	plus;
 	int		width;
 	int		precision;
 	int		argument;
-	
+	int		ret;
 }					t_flags;
 
 
@@ -60,9 +60,9 @@ char	*ft_itoa(int n);
 char	*ft_ftoa(double n);
 char	*ft_strrev(char *str);
 
-void	ft_putnbr(int nb);
-void	ft_putchar(char c);
-void	ft_putstr(char const *s);
+void	ft_putnbr(int nb, t_flags *flag_bag);
+void	ft_putchar(char c, t_flags *flag_bag);
+void	ft_putstr(char const *s, t_flags *flag_bag);
 void	*ft_memalloc(size_t size);
 
 int		ft_atoi(char *str);
@@ -75,7 +75,7 @@ int		ft_printf(const char *format, ...);
 
 void	print(int start, int end, char *format);
 
-void	print_plus(t_flags *flag_bag, int nb);
+void	print_plus(t_flags *flag_bag, int *nb);
 void	print_hash(t_flags *flag_bag, int len);
 void	print_int(t_flags *flag_bag, va_list ap);
 void	print_char(t_flags *flag_bag, va_list ap);
@@ -93,6 +93,6 @@ void	type(char type, t_flags *flag_bag);
 char	*convert(t_flags *flag_bag, long long nb);
 char	*convert_octal(unsigned int nb);
 char	*convert_hex(unsigned int nb, char type);
-void	print_width_unsigned_int(t_flags *flag_bag, int len, char *number);
-void	print_width_int(t_flags *flag_bag, int len, int nb);
+
+void	print_width_int(t_flags *flag_bag, int len, int *nb);
 #endif

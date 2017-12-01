@@ -50,23 +50,47 @@ void	bulid_bag(t_flags *flag_bag)
 	flag_bag->width = 0;
 	flag_bag->precision = 0;
 	flag_bag->argument = 0;
+	flag_bag->ret = 0;
 }
 
 
-void gather_flags(char *format, int *i, t_flags *flag_bag, va_list ap)
+void gather_flags(char *f, int *i, t_flags *flag_bag, va_list ap)
 {
 	*i += 1;
-	flags(format, i, flag_bag);
-	width(format, i, flag_bag, ap);
-	precision(format, i, flag_bag, ap);
-	arguments(format, i, flag_bag);
-	type(format[*i], flag_bag);
+//	printf("HERE f[i] = %c\n", f[*i]);
+//	while (f[*i] != '\0' && (f[*i] == '.' || f[*i] == '-' || f[*i] == '+' || f[*i] == ' ' || f[*i] == '#' ||
+//				f[*i] == '0' || f[*i] == '*' || f[*i] == 'h' || f[*i] == 'l' || f[*i] == 'j' || f[*i] == 'z' ||
+//							 (f[*i] >= '0' && f[*i] <= '9')))
+//	{
+//		
+		flags(f, i, flag_bag);
+		width(f, i, flag_bag, ap);
+		precision(f, i, flag_bag, ap);
+		arguments(f, i, flag_bag);
+//	}
+	type(f[*i], flag_bag);
+//	printf("prec: %d, width: %d\n", flag_bag->precision, flag_bag->width);
+}
+#include <stdio.h>
+
+void	print_perc(t_flags *flag_bag)
+{
+	int		width;
+	
+	width = 0;
+	if (flag_bag->minus == false)
+		while (width++ < flag_bag->width - 1)
+			flag_bag->zero == true ? ft_putchar('0', flag_bag) : ft_putchar(' ', flag_bag);
+	ft_putchar('%', flag_bag);
+	if (flag_bag->minus == true)
+		while (width++ < flag_bag->width -1)
+			flag_bag->zero == true ? ft_putchar('0', flag_bag) : ft_putchar(' ', flag_bag);
 }
 
 void	print_argument(t_flags *flag_bag, va_list ap)
 {
 	if (flag_bag->type == '%')
-		ft_putchar('%');
+		print_perc(flag_bag);
 	
 	if (flag_bag->type == 's')
 		print_string(flag_bag, ap);
@@ -89,38 +113,47 @@ void	print_argument(t_flags *flag_bag, va_list ap)
 		print_unsigned_int(flag_bag, ap);
 }
 
-void solve(char *format, va_list ap)
+int		solve(char *format, va_list ap)
 {
-	int i;
-	int start;
+	int		i;
+	int		ret;
+	int		start;
 	t_flags flag_bag;
 	
-	i = -1;
+	i = 0;
 	start = 0;
-	while (format[++i])
+	ret = 0;
+	while (format[i])
 	{
 		if (format[i] == '%')
 		{
 			print(start, i, format);
+			ret += i - start;
 			bulid_bag(&flag_bag);
 			gather_flags(format, &i, &flag_bag, ap);
 			flag_bag.type == 0 ? i : i++;
 			print_argument(&flag_bag, ap);
+			ret += flag_bag.ret;
 			start = i;
 		}
+		if (format[i] != '\0' && format[i] != '%')
+			i++;
 	}
 	print(start, i, format);
+	ret += i - start;
+	return (ret);
 }
 
 
-int ft_printf(const char *format, ...)
+int		ft_printf(const char *format, ...)
 {
-	va_list ap;
+	va_list		ap;
+	int			ret;
 
 	va_start(ap, format);
-	solve((char *)format, ap);
+	ret = solve((char *)format, ap);
 	va_end(ap);
-	return (0);
+	return (ret);
 }
 
 

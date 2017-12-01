@@ -59,6 +59,7 @@ void	width(char *f, int *i, t_flags *flag_bag, va_list ap)
 				*i += 1;
 		}
 	}
+//	flags(f, i, flag_bag);
 }
 
 void	precision(char *f, int *i, t_flags *flag_bag, va_list ap)
@@ -66,10 +67,13 @@ void	precision(char *f, int *i, t_flags *flag_bag, va_list ap)
 	char	*ptr;
 
 	ptr = f;
+//	flag_bag->ifprec = false;
+	flag_bag->precision = 0;
 	if (f[*i] != '.')
 		return ;
 	*i += 1;
-	while (f[*i] != '\0' && (f[*i] == '-' || f[*i] == '*' || (f[*i] > 47 && f[*i] < 58)))
+	
+	while (f[*i] != '\0' &&  (f[*i] == '-' || f[*i] == '*' || (f[*i] > 47 && f[*i] < 58)))
 	{
 		flag_bag->ifprec = true;
 		if (f[*i] == '*')
@@ -81,7 +85,7 @@ void	precision(char *f, int *i, t_flags *flag_bag, va_list ap)
 		{
 			ptr += *i;
 			flag_bag->precision = ft_atoi(ptr);
-			while ((f[*i] > 47 && f[*i] < 58) || f[*i] == '-')
+			while ((f[*i] != '\0' && f[*i] > 47 && f[*i] < 58) || f[*i] == '-')
 				*i += 1;
 		}
 	}
@@ -124,6 +128,8 @@ void	arguments(char *f, int *i, t_flags *flag_bag)
 
 void	type(char type, t_flags *flag_bag)
 {
+
+	
 	if (type == 'd' || type == 's' || type == 'S' || type == 'p' || type == 'D' ||
 		type == 'i' || type == 'o' || type == 'O' || type == 'u' || type == 'X' ||
 		type == 'U' || type == 'x' || type == 'c' || type == 'C' || type == 'E' ||

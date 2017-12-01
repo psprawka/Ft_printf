@@ -31,10 +31,10 @@ void	print_width(t_flags *flag_bag, int len)
 	}
 	if (flag_bag->zero == true)
 		while (++i < flag_bag->width - len)
-			ft_putchar('0');
+			ft_putchar('0', flag_bag);
 	else
 		while (++i < flag_bag->width - len)
-			ft_putchar(' ');
+			ft_putchar(' ', flag_bag);
 }
 
 /*
@@ -56,10 +56,10 @@ void	print_string(t_flags *flag_bag, va_list ap)
 	i = 0;
 	if (flag_bag->ifprec == true)
 		while (i < flag_bag->precision && str[i] != '\0')
-			ft_putchar(str[i++]);
+			ft_putchar(str[i++], flag_bag);
 	else
 		while (str[i] != '\0')
-			ft_putchar(str[i++]);
+			ft_putchar(str[i++], flag_bag);
 	if (flag_bag->minus == true)
 		print_width(flag_bag, len);
 }
@@ -76,7 +76,8 @@ void	print_char(t_flags *flag_bag, va_list ap)
 	if (flag_bag->minus == false && flag_bag->precision > -1)
 		print_width(flag_bag, 1);
 	
-	ft_putchar(x);
+	ft_putchar(x, flag_bag);
+	
 	if (flag_bag->minus == true || flag_bag->precision < 0)
 		print_width(flag_bag, 1);
 }

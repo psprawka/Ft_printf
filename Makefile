@@ -5,19 +5,6 @@
 #                                                     +:+ +:+         +:+      #
 #    By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/11/09 16:36:26 by psprawka          #+#    #+#              #
-#    Updated: 2017/11/09 16:36:27 by psprawka         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/24 11:51:37 by psprawka          #+#    #+#              #
 #    Updated: 2017/10/07 20:04:53 by psprawka         ###   ########.fr        #
 #                                                                              #
@@ -26,13 +13,16 @@
 CC = gcc
 NAME = libftprintf.a
 SRC_DIR = srcs/
-FILES =	ft_printf.c \
-	ft_strlen.c \
-	ft_strnew.c \
-	ft_putstr.c \
-	ft_putchar.c \ope
-	ft_putnbr.c \
-	ft_memset.c \
+FILES =	ft_libft.c \
+		ft_atoi.c \
+		ft_printf.c \
+		print.c \
+		conversion.c \
+		gather_flags.c \
+		itoa_and_ftoa.c \
+		str_chr.c \
+		ptr_dbl.c \
+		int_uint.c \
 		
 
 CFLAGS = -Wall -Wextra -Werror
