@@ -146,7 +146,7 @@ void	print_float(t_flags *flag_bag, va_list ap)
 	
 	if (flag_bag->minus == false)
 		print_width_float(flag_bag, ft_strlen(print));
-	print_plus(flag_bag, (int *)&nb);
+	print_plus(flag_bag, (long int *)&nb, 0);
 	
 	while (((prec--) - ft_strlen(print)) > 0)
 		ft_putchar('0', flag_bag);

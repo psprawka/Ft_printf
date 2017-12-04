@@ -23,6 +23,7 @@
 # define HEX_SMALL "0123456789abcdef"
 # define HEX_LARGE "0123456789ABCDEF"
 
+
 /*
 ** width may equal -1 when * appears;
 ** precision may egual -1 when * appears;
@@ -56,11 +57,11 @@ typedef struct		s_flags
 ** libft functions:
 */
 
-char	*ft_itoa(int n);
+char	*ft_itoa(long long int n);
 char	*ft_ftoa(double n);
 char	*ft_strrev(char *str);
 
-void	ft_putnbr(int nb, t_flags *flag_bag);
+void	ft_putnbr(long int nb, t_flags *flag_bag);
 void	ft_putchar(char c, t_flags *flag_bag);
 void	ft_putstr(char const *s, t_flags *flag_bag);
 void	*ft_memalloc(size_t size);
@@ -75,7 +76,7 @@ int		ft_printf(const char *format, ...);
 
 void	print(int start, int end, char *format);
 
-void	print_plus(t_flags *flag_bag, int *nb);
+void	print_plus(t_flags *flag_bag, long int *nb, int *len);
 void	print_hash(t_flags *flag_bag, int len);
 void	print_int(t_flags *flag_bag, va_list ap);
 void	print_char(t_flags *flag_bag, va_list ap);
@@ -90,9 +91,9 @@ void	precision(char *f, int *i, t_flags *flag_bag, va_list ap);
 void	arguments(char *f, int *i, t_flags *flag_bag);
 void	type(char type, t_flags *flag_bag);
 
-char	*convert(t_flags *flag_bag, long long nb);
+char	*convert(t_flags *flag_bag, long int nb);
 char	*convert_octal(unsigned int nb);
 char	*convert_hex(unsigned int nb, char type);
 
-void	print_width_int(t_flags *flag_bag, int len, int *nb);
+void	print_width_int(t_flags *flag_bag, int len, long int *nb);
 #endif

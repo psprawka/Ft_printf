@@ -58,16 +58,18 @@ void gather_flags(char *f, int *i, t_flags *flag_bag, va_list ap)
 {
 	*i += 1;
 //	printf("HERE f[i] = %c\n", f[*i]);
-//	while (f[*i] != '\0' && (f[*i] == '.' || f[*i] == '-' || f[*i] == '+' || f[*i] == ' ' || f[*i] == '#' ||
-//				f[*i] == '0' || f[*i] == '*' || f[*i] == 'h' || f[*i] == 'l' || f[*i] == 'j' || f[*i] == 'z' ||
-//							 (f[*i] >= '0' && f[*i] <= '9')))
-//	{
-//		
+	while (f[*i] != '\0' && (f[*i] == '.' || f[*i] == '-' || f[*i] == '+' ||
+							 f[*i] == ' ' || f[*i] == '#' || f[*i] == '0' ||
+							 f[*i] == '*' || f[*i] == 'h' || f[*i] == 'l' ||
+							 f[*i] == 'j' || f[*i] == 'z' ||
+							 (f[*i] >= '0' && f[*i] <= '9')))
+	{
+		
 		flags(f, i, flag_bag);
 		width(f, i, flag_bag, ap);
 		precision(f, i, flag_bag, ap);
 		arguments(f, i, flag_bag);
-//	}
+	}
 	type(f[*i], flag_bag);
 //	printf("prec: %d, width: %d\n", flag_bag->precision, flag_bag->width);
 }

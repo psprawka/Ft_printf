@@ -83,7 +83,7 @@ char	*convert_octal(unsigned int nb)
 	return (ft_strrev(print));
 }
 
-char	*convert(t_flags *flag_bag, long long nb)
+char	*convert(t_flags *flag_bag, long int nb)
 {
 	if (flag_bag->type == 'b')
 		return (convert_binary(nb));

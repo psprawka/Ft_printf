@@ -15,8 +15,8 @@
 /*
 ** ---------------------------------- INTEGER TO STRING --------------------------------------
 */
-
-static void		count(int n, unsigned int *size)
+#include <stdio.h>
+static void		count(long long int n, unsigned int *size)
 {
 	if (n != 0)
 	{
@@ -27,18 +27,25 @@ static void		count(int n, unsigned int *size)
 		return ;
 }
 
-static void		fill_table(int if_neg, int n, char *tab, int size)
+static void		fill_table(int if_neg, long long int n, char *tab, int size)
 {
 	tab += size;
+	
 	*tab-- = '\0';
-	if (n == -2147483648)
+	if (n == -9223372036854775807 - 1)
 	{
 		*tab-- = '8';
+		n /= 10;
 		size--;
-		n = 214748364;
+	}
+	if (n > 9223372036854775807)
+	{
+		n = -9223372036854775807 + (n - 9223372036854775807) - 1;
+		if_neg = 1;
 	}
 	else
 		n = (if_neg == 1 ? n - n - n : n);
+
 	while (size-- > 0)
 	{
 		if ((if_neg == 1) && (size == 0))
@@ -49,7 +56,7 @@ static void		fill_table(int if_neg, int n, char *tab, int size)
 	}
 }
 
-char			*ft_itoa(int n)
+char			*ft_itoa(long long int n)
 {
 	unsigned int	size;
 	char			*tab = NULL;
@@ -61,7 +68,7 @@ char			*ft_itoa(int n)
 	size = (n == 0 ? 1 : size);
 	if (!(tab = (char *)malloc(size + 1)))
 		return ((char *)'\0');
-	
+
 	fill_table(if_neg, n, tab, size);
 	return (tab);
 }
@@ -94,7 +101,7 @@ void	create_string(double nb, char *rest, int i)
 {
 	int		afterdots = 0;
 	int		dot = 0;
-	
+
 	if (nb < 1)
 	{
 		rest[i++] = '.';
@@ -132,4 +139,3 @@ char			*ft_ftoa(double n)
 	create_string(n, flt, i);
 	return (flt);
 }
-

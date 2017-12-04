@@ -23,26 +23,30 @@ void	print(int start, int end, char *format)
 		print_format(format[start++]);
 }
 
-void	print_plus(t_flags *flag_bag, int *nb)
+void	print_plus(t_flags *flag_bag, long int *nb, int *len)
 {
-	if (flag_bag->plus == true)
+	if (flag_bag->plus == true && *nb != (-9223372036854775807 - 1))
 	{
+		if (flag_bag->width != 0)
+			flag_bag->width--;
 		if (*nb > -1)
 			ft_putchar('+', flag_bag);
 		else
 		{
 			ft_putchar('-', flag_bag);
 			*nb *= -1;
+			*len -= 1;
 		}
-		flag_bag->plus = false;
+
 	}
+	flag_bag->plus = false;
 }
 
 void	print_hash(t_flags *flag_bag, int len)
 {
 //	static int	if_print;
-	
-	
+
+
 	if (flag_bag->type == 'x' || flag_bag->type == 'X' || flag_bag->type == 'p')
 	{
 		if (flag_bag->hash == true)
@@ -54,5 +58,5 @@ void	print_hash(t_flags *flag_bag, int len)
 		if (flag_bag->hash == true && flag_bag->precision - len < 0)// && if_print == false)
 			ft_putstr("0", flag_bag);
 	}
-//	if_print = 1;
+//	flag_bag->hash = false;
 }

@@ -71,11 +71,10 @@ void	precision(char *f, int *i, t_flags *flag_bag, va_list ap)
 	flag_bag->precision = 0;
 	if (f[*i] != '.')
 		return ;
+	flag_bag->ifprec = true;
 	*i += 1;
-	
 	while (f[*i] != '\0' &&  (f[*i] == '-' || f[*i] == '*' || (f[*i] > 47 && f[*i] < 58)))
 	{
-		flag_bag->ifprec = true;
 		if (f[*i] == '*')
 		{
 			flag_bag->precision = va_arg(ap, int);

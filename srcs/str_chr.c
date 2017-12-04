@@ -15,7 +15,7 @@
 /*
 ** print_width prints both precision and width for either characher or string
 */
-
+#include <stdio.h>
 void	print_width(t_flags *flag_bag, int len)
 {
 	int i;
@@ -49,10 +49,13 @@ void	print_string(t_flags *flag_bag, va_list ap)
 	int i;
 	
 	str = va_arg(ap, char *);
+	str = (str == NULL ? "(null)" : str);
 	len = (flag_bag->ifprec > -1 && flag_bag->precision < ft_strlen(str) &&
 		   flag_bag->ifprec == true ) ? flag_bag->precision : ft_strlen(str);
+	
 	if (flag_bag->minus == false)
 		print_width(flag_bag, len);
+	
 	i = 0;
 	if (flag_bag->ifprec == true)
 		while (i < flag_bag->precision && str[i] != '\0')

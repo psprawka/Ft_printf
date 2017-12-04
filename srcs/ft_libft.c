@@ -82,11 +82,11 @@ char	*ft_strrev(char *str)
 }
 
 
-void	ft_putnbr(int nb, t_flags *flag_bag)
+void	ft_putnbr(long int nb, t_flags *flag_bag)
 {
-	if (nb == -2147483648)
+	if (nb == -9223372036854775807 - 1)
 	{
-		ft_putstr("-2147483648", flag_bag);
+		ft_putstr("-9223372036854775808", flag_bag);
 		return ;
 	}
 	if (nb < 0)

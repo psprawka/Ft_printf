@@ -36,7 +36,7 @@ static int	change(char *str, char *num, int len)
 
 int			ft_atoi(char *str)
 {
-	long long	nb;
+	long int	nb;
 	int			i;
 	char		num[40];
 	int			len;
@@ -53,7 +53,7 @@ int			ft_atoi(char *str)
 	}
 	if (num[0] == '-')
 		nb = nb - nb - nb;
-	if (nb > 9223372036854775807 || nb < -9223372036854775807)
+	if (nb > 9223372036854775807 || nb < -9223372036854775807 - 1)
 		return (0);
 	return (nb);
 }
