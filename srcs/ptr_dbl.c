@@ -16,29 +16,15 @@
 ** ----------------------------------- UNSIGNED LONG LONG - p ----------------------------------------
 */
 
-void	print_width_pointer(t_flags *flag_bag, char *number)
+void	parse_ptr(t_flags *flag_bag)
 {
-	int i;
-	
-	i = -1;
-	if (flag_bag->precision < 0)
-	{
-		while (++i < flag_bag->precision * -1 - flag_bag->len)
-			ft_putchar(' ', flag_bag);
-		return ;
-	}
-	if (flag_bag->zero == true && flag_bag->ifprec == false)
-		while (++i < flag_bag->width - flag_bag->len + 2)
-			ft_putchar('0', flag_bag);
-	else
-	{
-		if (flag_bag->precision - flag_bag->len + 2 > 0)
-			while (++i < flag_bag->width - flag_bag->len - (flag_bag->precision - ft_strlen(number)))
-				ft_putchar(' ', flag_bag);
-		else
-			while (++i < flag_bag->width - flag_bag->len)
-				ft_putchar(' ', flag_bag);
-	}
+	flag_bag->hash = true;
+	flag_bag->minus = flag_bag->precision < 0 ? true : flag_bag->minus;
+	flag_bag->precision -= flag_bag->len;
+	flag_bag->width -= (flag_bag->precision > 0) ? (2 + flag_bag->len + flag_bag->precision) : flag_bag->len + 2;
+	flag_bag->zero = (flag_bag->ifprec == true) ? false : flag_bag->zero;
+	flag_bag->width = flag_bag->precision * -1 > flag_bag->width ?
+		flag_bag->precision * -1 - (flag_bag->len + 4): flag_bag->width;
 }
 
 void	print_pointer(t_flags *flag_bag, va_list ap)
@@ -48,84 +34,56 @@ void	print_pointer(t_flags *flag_bag, va_list ap)
 	
 	nb = va_arg(ap, unsigned long long int);
 	print = convert(flag_bag, nb);
-	flag_bag->hash = true;
-	flag_bag->len = ft_strlen(print) + 2;
-	
-	
-	if (flag_bag->minus == false && flag_bag->precision > -1)
-		print_width_pointer(flag_bag, print);
-	
+	flag_bag->len = ft_strlen(print);
+	parse_ptr(flag_bag);
+	if (flag_bag->zero == true)
+		print_hash(flag_bag, nb);
+	if (flag_bag->minus == false)
+		while (flag_bag->width-- > 0)
+			flag_bag->zero == true ? ft_putchar('0', flag_bag) : ft_putchar(' ', flag_bag);
 	print_hash(flag_bag, nb);
-	
-	while (((flag_bag->precision--) - flag_bag->len + 2) > 0)
+	while (flag_bag->precision-- > 0)
 		ft_putchar('0', flag_bag);
-	
-	flag_bag->precision++;
 	ft_putstr(print, flag_bag);
-	
-	if (flag_bag->minus == true || flag_bag->precision < 0)
-		print_width_pointer(flag_bag, print);
-	
+	while(flag_bag->width-- > 0)
+		ft_putchar(' ', flag_bag);
 	free(print);
 }
 
 /*
-** ----------------------------------- FLOAT - f, F, e, E ----------------------------------------
+** -------------------------------------- FLOAT - f, F, -------------------------------------------
 */
 
-char	*change_float_prec(char *number, t_flags *flag_bag, char *num)
+char	*round(char *print)
 {
-	int		i, x;
-	
+	int	i;
+	int nb;
 	i = 0;
-	x = -1;
-	while (number[i] != '\0' && number[i] != '.')
-	{
-		num[i] = number[i];
-		i++;
-	}
 	
-	if (number[i] == '\0')
-		return (number);
+	nb = ft_atoi(print);
 	
-	if (flag_bag->precision != 0)
-	{
-		while (number[i] != '\0' && flag_bag->precision > x++)
-		{
-			num[i] = number[i];
-			i++;
-		}
-		while (flag_bag->precision > x++)
-			num[i++] = '0';
-	}
+	while (print[i++] != '.')
+		;
+	print[i] > '4' ? nb++ : nb;
+	free(print);
+	print = ft_itoa(nb);
 	
-	num[i] = '\0';
-	return (num);
+	return (print);
 }
 
-void	print_width_float(t_flags *flag_bag)
+
+char	*parse_flt(t_flags *flag_bag, char *print)
 {
-	int i;
-	
-	i = -1;
-	if (flag_bag->precision < 0)
-	{
-		while (++i < flag_bag->precision * -1 - flag_bag->len)
-			ft_putchar(' ', flag_bag);
-		return ;
-	}
-	if (flag_bag->zero == true)
-		while (++i < flag_bag->width - flag_bag->len)
-			ft_putchar('0', flag_bag);
-	else
-	{
-		if (flag_bag->precision - flag_bag->len + 2 > 0)
-			while (++i < flag_bag->width - flag_bag->len - (flag_bag->precision - flag_bag->len))
-				ft_putchar(' ', flag_bag);
-		else
-			while (++i < flag_bag->width - flag_bag->len)
-				ft_putchar(' ', flag_bag);
-	}
+	print = (flag_bag->precision < 1 && flag_bag->ifprec == true) ? round(print) : print;
+	flag_bag->width = flag_bag->precision < 0 ? flag_bag->precision * -1 : flag_bag->width;
+	flag_bag->ifprec == true && flag_bag->precision != 0 ? flag_bag->precision++ : flag_bag->precision;
+	flag_bag->precision = flag_bag->ifprec == false ? 7 : flag_bag->precision;
+	flag_bag->len = flag_bag->precision < 0 ? flag_bag->len - 7 : flag_bag->len - 7 + flag_bag->precision;
+	flag_bag->minus = flag_bag->precision < 0 ? true : flag_bag->minus;
+	flag_bag->width -= flag_bag->len;
+	flag_bag->space == true && flag_bag->width < 1 ? flag_bag->width = 1 : flag_bag->width;
+	flag_bag->plus == true ? flag_bag->width-- : flag_bag->width;
+	return(print);
 }
 
 
@@ -133,33 +91,23 @@ void	print_float(t_flags *flag_bag, va_list ap)
 {
 	double	nb;
 	char	*print;
-	int		prec;
+	int		i;
 	
+	i = 1;
 	nb = va_arg(ap, double);
 	print = ft_ftoa(nb);
 	flag_bag->len = ft_strlen(print);
-	
-	if (flag_bag->precision < 0)
-		flag_bag->minus = true;
-	if (flag_bag->ifprec == true && flag_bag->ifprec > -1)
-		change_float_prec(ft_ftoa(nb), flag_bag, print);
-	
-	prec = flag_bag->precision;
-	if (nb > -1 && flag_bag->space == true)
-		ft_putchar(' ', flag_bag);
-	
+	print = parse_flt(flag_bag, print);
+	nb < 0 ? flag_bag->width++ : i--;
 	if (flag_bag->minus == false)
-		print_width_float(flag_bag);
-	print_plus(flag_bag, (long int *)&nb);
-	
-	while (((prec--) - flag_bag->len) > 0)
-		ft_putchar('0', flag_bag);
-	
-	if ((flag_bag->ifprec == true) || (flag_bag->precision == false))
-		ft_putstr(print, flag_bag);
-	
-	if (flag_bag->minus == true && flag_bag->width > flag_bag->precision)
-		print_width_float(flag_bag);
-	
-	free(print);
+		while (flag_bag->width-- > 0)
+			flag_bag->zero == true ? ft_putchar('0', flag_bag) : ft_putchar(' ', flag_bag);
+	print_plus(flag_bag, (long int)&nb);
+	while (print[i] != '.' && print[i] != '\0')
+		ft_putchar(print[i++], flag_bag);
+	while (flag_bag->precision-- > 0)
+		ft_putchar(print[i++], flag_bag);
+	while(flag_bag->width-- > 0)
+		ft_putchar(' ', flag_bag);
+//	free(print);
 }
