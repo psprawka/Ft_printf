@@ -23,40 +23,31 @@ void	print(int start, int end, char *format)
 		print_format(format[start++]);
 }
 
-void	print_plus(t_flags *flag_bag, long int *nb, int *len)
+void	print_plus(t_flags *flag_bag, long int *nb)
 {
-	if (flag_bag->plus == true && *nb != (-9223372036854775807 - 1))
-	{
-		if (flag_bag->width != 0)
-			flag_bag->width--;
+	if (flag_bag->plus == true)
 		if (*nb > -1)
 			ft_putchar('+', flag_bag);
-		else
-		{
-			ft_putchar('-', flag_bag);
-			*nb *= -1;
-			*len -= 1;
-		}
-
+	if (*nb < 0 && *nb != (-9223372036854775807 - 1))
+	{
+		ft_putchar('-', flag_bag);
+		*nb *= -1;
 	}
 	flag_bag->plus = false;
 }
 
-void	print_hash(t_flags *flag_bag, int len)
+void	print_hash(t_flags *flag_bag, unsigned long long int nb)
 {
-//	static int	if_print;
-
-
 	if (flag_bag->type == 'x' || flag_bag->type == 'X' || flag_bag->type == 'p')
 	{
-		if (flag_bag->hash == true)
+		if (flag_bag->hash == true && nb != 0)
 			(flag_bag->type == 'x' || flag_bag->type == 'p')
 				? ft_putstr("0x", flag_bag) : ft_putstr("0X", flag_bag);
 	}
 	if (flag_bag->type == 'o' || flag_bag->type == 'O')
 	{
-		if (flag_bag->hash == true && flag_bag->precision - len < 0)// && if_print == false)
+		if (flag_bag->hash == true && flag_bag->precision - flag_bag->len < 0)
 			ft_putstr("0", flag_bag);
 	}
-//	flag_bag->hash = false;
+	flag_bag->hash = false;
 }

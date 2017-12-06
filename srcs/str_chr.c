@@ -16,7 +16,7 @@
 ** print_width prints both precision and width for either characher or string
 */
 #include <stdio.h>
-void	print_width(t_flags *flag_bag, int len)
+void	print_width(t_flags *flag_bag)
 {
 	int i;
 	
@@ -24,16 +24,16 @@ void	print_width(t_flags *flag_bag, int len)
 	if (flag_bag->precision < 0)
 	{
 		if (flag_bag->type == 's')
-			flag_bag->width = flag_bag->precision * -1 + len;
+			flag_bag->width = flag_bag->precision * -1 + flag_bag->len;
 		else
 			flag_bag->width = flag_bag->precision * -1;
 		flag_bag->zero = false;
 	}
 	if (flag_bag->zero == true)
-		while (++i < flag_bag->width - len)
+		while (++i < flag_bag->width - flag_bag->len)
 			ft_putchar('0', flag_bag);
 	else
-		while (++i < flag_bag->width - len)
+		while (++i < flag_bag->width - flag_bag->len)
 			ft_putchar(' ', flag_bag);
 }
 
@@ -45,16 +45,15 @@ void	print_width(t_flags *flag_bag, int len)
 void	print_string(t_flags *flag_bag, va_list ap)
 {
 	char *str;
-	int len;
 	int i;
 	
 	str = va_arg(ap, char *);
 	str = (str == NULL ? "(null)" : str);
-	len = (flag_bag->ifprec > -1 && flag_bag->precision < ft_strlen(str) &&
+	flag_bag->len = (flag_bag->ifprec > -1 && flag_bag->precision < ft_strlen(str) &&
 		   flag_bag->ifprec == true ) ? flag_bag->precision : ft_strlen(str);
 	
 	if (flag_bag->minus == false)
-		print_width(flag_bag, len);
+		print_width(flag_bag);
 	
 	i = 0;
 	if (flag_bag->ifprec == true)
@@ -64,7 +63,7 @@ void	print_string(t_flags *flag_bag, va_list ap)
 		while (str[i] != '\0')
 			ft_putchar(str[i++], flag_bag);
 	if (flag_bag->minus == true)
-		print_width(flag_bag, len);
+		print_width(flag_bag);
 }
 
 /*
@@ -76,11 +75,12 @@ void	print_char(t_flags *flag_bag, va_list ap)
 	unsigned char x;
 	
 	x = (unsigned char)va_arg(ap, int);
+	flag_bag->len = 1;
 	if (flag_bag->minus == false && flag_bag->precision > -1)
-		print_width(flag_bag, 1);
+		print_width(flag_bag);
 	
 	ft_putchar(x, flag_bag);
 	
 	if (flag_bag->minus == true || flag_bag->precision < 0)
-		print_width(flag_bag, 1);
+		print_width(flag_bag);
 }

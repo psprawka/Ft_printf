@@ -46,11 +46,13 @@ void	bulid_bag(t_flags *flag_bag)
 	flag_bag->hash = false;
 	flag_bag->zero = false;
 	flag_bag->ifprec = false;
+	flag_bag->display = true;
 	flag_bag->type = 0;
 	flag_bag->width = 0;
 	flag_bag->precision = 0;
 	flag_bag->argument = 0;
 	flag_bag->ret = 0;
+	flag_bag->len = 0;
 }
 
 

@@ -25,14 +25,14 @@ char	hex_table(int x, char type)
 	return (0);
 }
 
-char	*convert_hex(unsigned int nb, char type)
+char	*convert_hex(unsigned long int nb, char type)
 {
 	char *print;
 	int i;
 	
 	i = 0;
 	
-	print = ft_memalloc(20);
+	print = ft_memalloc(21);
 	if (nb == 0)
 		print[i] = '0';
 	
@@ -44,7 +44,7 @@ char	*convert_hex(unsigned int nb, char type)
 	return (ft_strrev(print));
 }
 
-char	*convert_binary(unsigned int nb)
+char	*convert_binary(unsigned long int nb)
 {
 	char *print;
 	int i;
@@ -64,7 +64,7 @@ char	*convert_binary(unsigned int nb)
 	
 }
 
-char	*convert_octal(unsigned int nb)
+char	*convert_octal(unsigned long int nb)
 {
 	char *print;
 	int i;
@@ -82,9 +82,11 @@ char	*convert_octal(unsigned int nb)
 	}
 	return (ft_strrev(print));
 }
+#include <stdio.h>
 
-char	*convert(t_flags *flag_bag, long int nb)
+char	*convert(t_flags *flag_bag, long long int nb)
 {
+
 	if (flag_bag->type == 'b')
 		return (convert_binary(nb));
 	

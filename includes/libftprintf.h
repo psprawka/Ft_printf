@@ -16,12 +16,16 @@
 # include <stdarg.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stddef.h>
+# include <stdint.h>
 
 # define bool int
 # define true 1
 # define false 0
-# define HEX_SMALL "0123456789abcdef"
-# define HEX_LARGE "0123456789ABCDEF"
+# define HEX_SMALL 	"0123456789abcdef"
+# define HEX_LARGE 	"0123456789ABCDEF"
+# define LL_MAX 	9223372036854775807
+# define LL_MIN 	-9223372036854775808
 
 
 /*
@@ -39,17 +43,20 @@
 
 typedef struct		s_flags
 {
+	bool	plus;
 	bool	minus;
 	bool	zero;
 	bool	space;
 	bool	hash;
 	bool	ifprec;
+	bool	display;
 	char	type;
-	bool	plus;
 	int		width;
 	int		precision;
 	int		argument;
 	int		ret;
+	int		len;
+	
 }					t_flags;
 
 
@@ -60,12 +67,10 @@ typedef struct		s_flags
 char	*ft_itoa(long long int n);
 char	*ft_ftoa(double n);
 char	*ft_strrev(char *str);
-
 void	ft_putnbr(long int nb, t_flags *flag_bag);
 void	ft_putchar(char c, t_flags *flag_bag);
 void	ft_putstr(char const *s, t_flags *flag_bag);
 void	*ft_memalloc(size_t size);
-
 int		ft_atoi(char *str);
 int		ft_strlen(char *str);
 int		ft_printf(const char *format, ...);
@@ -75,9 +80,8 @@ int		ft_printf(const char *format, ...);
 */
 
 void	print(int start, int end, char *format);
-
-void	print_plus(t_flags *flag_bag, long int *nb, int *len);
-void	print_hash(t_flags *flag_bag, int len);
+void	print_plus(t_flags *flag_bag, long int *nb);
+void	print_hash(t_flags *flag_bag, unsigned long long int nb);
 void	print_int(t_flags *flag_bag, va_list ap);
 void	print_char(t_flags *flag_bag, va_list ap);
 void	print_float(t_flags *flag_bag, va_list ap);
@@ -91,9 +95,8 @@ void	precision(char *f, int *i, t_flags *flag_bag, va_list ap);
 void	arguments(char *f, int *i, t_flags *flag_bag);
 void	type(char type, t_flags *flag_bag);
 
-char	*convert(t_flags *flag_bag, long int nb);
-char	*convert_octal(unsigned int nb);
-char	*convert_hex(unsigned int nb, char type);
+char	*convert(t_flags *flag_bag, long long int nb);
+char	*convert_octal(unsigned long int nb);
+char	*convert_hex(unsigned long int nb, char type);
 
-void	print_width_int(t_flags *flag_bag, int len, long int *nb);
 #endif

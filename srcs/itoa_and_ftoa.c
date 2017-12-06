@@ -18,13 +18,12 @@
 #include <stdio.h>
 static void		count(long long int n, unsigned int *size)
 {
-	if (n != 0)
+	while (n != 0)
 	{
 		*size += 1;
-		count(n / 10, size);
+		n /= 10;
 	}
-	else
-		return ;
+	
 }
 
 static void		fill_table(int if_neg, long long int n, char *tab, int size)
@@ -51,24 +50,26 @@ static void		fill_table(int if_neg, long long int n, char *tab, int size)
 		if ((if_neg == 1) && (size == 0))
 			*tab = '-';
 		else
+			
 			*tab-- = n % 10 + 48;
 		n /= 10;
 	}
+//	printf("tab: %s\n", tab);
 }
 
 char			*ft_itoa(long long int n)
 {
+	
 	unsigned int	size;
 	char			*tab = NULL;
 	int				if_neg;
-
+//	printf("number: %lld\n", n);
 	if_neg = (n < 0 ? 1 : 0);
 	size = (n < 0 ? 1 : 0);
 	count(n, &size);
 	size = (n == 0 ? 1 : size);
 	if (!(tab = (char *)malloc(size + 1)))
 		return ((char *)'\0');
-
 	fill_table(if_neg, n, tab, size);
 	return (tab);
 }
