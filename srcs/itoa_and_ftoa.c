@@ -16,6 +16,7 @@
 ** ---------------------------------- INTEGER TO STRING --------------------------------------
 */
 #include <stdio.h>
+
 static void		count(long long int n, unsigned int *size)
 {
 	while (n != 0)
@@ -23,7 +24,6 @@ static void		count(long long int n, unsigned int *size)
 		*size += 1;
 		n /= 10;
 	}
-	
 }
 
 static void		fill_table(int if_neg, long long int n, char *tab, int size)

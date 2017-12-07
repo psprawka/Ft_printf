@@ -28,6 +28,19 @@ void	ft_putstr(char const *s, t_flags *flag_bag)
 		ft_putchar(s[i++], flag_bag);
 }
 
+int		ft_strcmp(char *s1, char *s2)
+{
+	int		i;
+	
+	i = 0;
+	while (s1[i] || s2[i])
+	{
+		if ((s1[i] < s2[i]) || (s1[i] > s2[i]))
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
+	}
+	return (0);
+}
 
 int		ft_strlen(char *str)
 {

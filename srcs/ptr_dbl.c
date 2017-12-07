@@ -54,27 +54,25 @@ void	print_pointer(t_flags *flag_bag, va_list ap)
 ** -------------------------------------- FLOAT - f, F, -------------------------------------------
 */
 
-char	*round(char *print)
+char	*round_up(char *print)
 {
 	int	i;
 	int nb;
 	i = 0;
 	
 	nb = ft_atoi(print);
-	
 	while (print[i++] != '.')
 		;
 	print[i] > '4' ? nb++ : nb;
 	free(print);
 	print = ft_itoa(nb);
-	
 	return (print);
 }
 
 
 char	*parse_flt(t_flags *flag_bag, char *print)
 {
-	print = (flag_bag->precision < 1 && flag_bag->ifprec == true) ? round(print) : print;
+	print = (flag_bag->precision < 1 && flag_bag->ifprec == true) ? round_up(print) : print;
 	flag_bag->width = flag_bag->precision < 0 ? flag_bag->precision * -1 : flag_bag->width;
 	flag_bag->ifprec == true && flag_bag->precision != 0 ? flag_bag->precision++ : flag_bag->precision;
 	flag_bag->precision = flag_bag->ifprec == false ? 7 : flag_bag->precision;
@@ -102,12 +100,12 @@ void	print_float(t_flags *flag_bag, va_list ap)
 	if (flag_bag->minus == false)
 		while (flag_bag->width-- > 0)
 			flag_bag->zero == true ? ft_putchar('0', flag_bag) : ft_putchar(' ', flag_bag);
-	print_plus(flag_bag, (long int)&nb);
+	print_plus(flag_bag, (long int *)&nb);
 	while (print[i] != '.' && print[i] != '\0')
 		ft_putchar(print[i++], flag_bag);
 	while (flag_bag->precision-- > 0)
 		ft_putchar(print[i++], flag_bag);
 	while(flag_bag->width-- > 0)
 		ft_putchar(' ', flag_bag);
-//	free(print);
+	free(print);
 }

@@ -55,6 +55,15 @@ void	bulid_bag(t_flags *flag_bag)
 	flag_bag->len = 0;
 }
 
+# define NORMAL		"\x1B[0m"
+# define BLACK		"\x1B[30m"
+# define RED		"\x1B[31m"
+# define GREEN		"\x1B[32m"
+# define YELLOW		"\x1B[33m"
+# define BLEU		"\x1B[34m"
+# define MAGNETA	"\x1B[35m"
+# define CYAN		"\x1B[36m"
+# define WHITE		"\x1B[37m"
 
 void gather_flags(char *f, int *i, t_flags *flag_bag, va_list ap)
 {
@@ -73,7 +82,6 @@ void gather_flags(char *f, int *i, t_flags *flag_bag, va_list ap)
 		arguments(f, i, flag_bag);
 	}
 	type(f[*i], flag_bag);
-//	printf("prec: %d, width: %d\n", flag_bag->precision, flag_bag->width);
 }
 #include <stdio.h>
 

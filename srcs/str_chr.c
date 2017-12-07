@@ -12,9 +12,23 @@
 
 #include "../includes/libftprintf.h"
 
+
+int		colors(char *string, t_flags *flag_bag)
+{
+	if (ft_strcmp(string, BLACK) == 0 || ft_strcmp(string, BLUE) == 0 || ft_strcmp(string, YELLOW) == 0 ||
+			ft_strcmp(string, NORMAL) == 0 || ft_strcmp(string, GREEN) == 0 || ft_strcmp(string, MAGNETA) == 0 ||
+			ft_strcmp(string, CYAN) == 0 || ft_strcmp(string, RED) == 0 ||ft_strcmp(string, WHITE) == 0)
+	{
+		ft_putstr(string, flag_bag);
+		return (1);
+	}
+	return (0);
+}
+
 /*
 ** print_width prints both precision and width for either characher or string
 */
+
 #include <stdio.h>
 void	print_width(t_flags *flag_bag)
 {
@@ -48,7 +62,10 @@ void	print_string(t_flags *flag_bag, va_list ap)
 	int i;
 	
 	str = va_arg(ap, char *);
+	
 	str = (str == NULL ? "(null)" : str);
+	if (colors(str, flag_bag) == 1)
+		return ;
 	flag_bag->len = (flag_bag->ifprec > -1 && flag_bag->precision < ft_strlen(str) &&
 		   flag_bag->ifprec == true ) ? flag_bag->precision : ft_strlen(str);
 	
