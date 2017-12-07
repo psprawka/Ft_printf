@@ -38,100 +38,82 @@
 **					z: for idouxX - size_t;
 */
 
-void	bulid_bag(t_flags *flag_bag)
+void	bulid_bag(t_flags *bag)
 {
-	flag_bag->minus = false;
-	flag_bag->plus = false;
-	flag_bag->space = false;
-	flag_bag->hash = false;
-	flag_bag->zero = false;
-	flag_bag->ifprec = false;
-	flag_bag->display = true;
-	flag_bag->type = 0;
-	flag_bag->width = 0;
-	flag_bag->precision = 0;
-	flag_bag->argument = 0;
-	flag_bag->ret = 0;
-	flag_bag->len = 0;
+	bag->minus = false;
+	bag->plus = false;
+	bag->space = false;
+	bag->hash = false;
+	bag->zero = false;
+	bag->ifprec = false;
+	bag->display = true;
+	bag->width = 0;
+	bag->precision = 0;
+	bag->argument = 0;
+	bag->ret = 0;
+	bag->len = 0;
 }
 
-# define NORMAL		"\x1B[0m"
-# define BLACK		"\x1B[30m"
-# define RED		"\x1B[31m"
-# define GREEN		"\x1B[32m"
-# define YELLOW		"\x1B[33m"
-# define BLEU		"\x1B[34m"
-# define MAGNETA	"\x1B[35m"
-# define CYAN		"\x1B[36m"
-# define WHITE		"\x1B[37m"
 
-void gather_flags(char *f, int *i, t_flags *flag_bag, va_list ap)
+
+void gather_flags(char *f, int *i, t_flags *bag, va_list ap)
 {
 	*i += 1;
-//	printf("HERE f[i] = %c\n", f[*i]);
 	while (f[*i] != '\0' && (f[*i] == '.' || f[*i] == '-' || f[*i] == '+' ||
-							 f[*i] == ' ' || f[*i] == '#' || f[*i] == '0' ||
-							 f[*i] == '*' || f[*i] == 'h' || f[*i] == 'l' ||
-							 f[*i] == 'j' || f[*i] == 'z' ||
-							 (f[*i] >= '0' && f[*i] <= '9')))
+			f[*i] == ' ' || f[*i] == '#' || f[*i] == '0' || f[*i] == '*' ||
+			f[*i] == 'h' || f[*i] == 'l' || f[*i] == 'j' || f[*i] == 'z' ||
+			(f[*i] >= '0' && f[*i] <= '9')))
 	{
-		
-		flags(f, i, flag_bag);
-		width(f, i, flag_bag, ap);
-		precision(f, i, flag_bag, ap);
-		arguments(f, i, flag_bag);
+		flags(f, i, bag);
+		width(f, i, bag, ap);
+		precision(f, i, bag, ap);
+		arguments(f, i, bag);
 	}
-	type(f[*i], flag_bag);
+	type(f[*i], bag);
 }
-#include <stdio.h>
 
-void	print_perc(t_flags *flag_bag)
+
+void	print_perc(t_flags *bag)
 {
 	int		width;
-	
+
 	width = 0;
-	if (flag_bag->minus == false)
-		while (width++ < flag_bag->width - 1)
-			flag_bag->zero == true ? ft_putchar('0', flag_bag) : ft_putchar(' ', flag_bag);
-	ft_putchar('%', flag_bag);
-	if (flag_bag->minus == true)
-		while (width++ < flag_bag->width -1)
-			flag_bag->zero == true ? ft_putchar('0', flag_bag) : ft_putchar(' ', flag_bag);
+	if (MINUS == false)
+		while (width++ < WIDTH - 1)
+			ZERO == true ? ft_putchar('0', bag) : ft_putchar(' ', bag);
+	ft_putchar('%', bag);
+	if (MINUS == true)
+		while (width++ < WIDTH -1)
+			ZERO == true ? ft_putchar('0', bag) : ft_putchar(' ', bag);
 }
 
-void	print_argument(t_flags *flag_bag, va_list ap)
+
+void	print_argument(t_flags *bag, va_list ap)
 {
-	if (flag_bag->type == '%')
-		print_perc(flag_bag);
-	
-	if (flag_bag->type == 's')
-		print_string(flag_bag, ap);
-	
-	if (flag_bag->type == 'c' || flag_bag->type == 'C')
-		print_char(flag_bag, ap);
-	
-	if (flag_bag->type == 'd' || flag_bag->type == 'D' || flag_bag->type == 'i')
-		print_int(flag_bag, ap);
-	
-	if (flag_bag->type == 'p')
-		print_pointer(flag_bag, ap);
-	
-	if (flag_bag->type == 'f' || flag_bag->type == 'F')
-		print_float(flag_bag, ap);
-	
-	if (flag_bag->type == 'o' || flag_bag->type == 'O' || flag_bag->type == 'u' ||
-		flag_bag->type == 'U' || flag_bag->type == 'x' || flag_bag->type == 'X' ||
-		flag_bag->type == 'b')
-		print_unsigned_int(flag_bag, ap);
+	if (TYPE == '%')
+		print_perc(bag);
+	if (TYPE == 's')
+		print_string(bag, ap);
+	if (TYPE == 'c' || TYPE == 'C')
+		print_char(bag, ap);
+	if (TYPE == 'd' || TYPE == 'D' || TYPE == 'i')
+		print_int(bag, ap);
+	if (TYPE == 'p')
+		print_pointer(bag, ap);
+	if (TYPE == 'f' || TYPE == 'F')
+		print_float(bag, ap);
+	if (TYPE == 'o' || TYPE == 'O' || TYPE == 'u' || TYPE == 'U' ||
+		TYPE == 'x' || TYPE == 'X' || TYPE == 'b')
+		print_unsigned_int(bag, ap);
 }
 
 int		solve(char *format, va_list ap)
 {
-	int		i;
-	int		ret;
-	int		start;
-	t_flags flag_bag;
-	
+	int			i;
+	int			ret;
+	int			start;
+	t_flags 	bag;
+
 	i = 0;
 	start = 0;
 	ret = 0;
@@ -141,11 +123,11 @@ int		solve(char *format, va_list ap)
 		{
 			print(start, i, format);
 			ret += i - start;
-			bulid_bag(&flag_bag);
-			gather_flags(format, &i, &flag_bag, ap);
-			flag_bag.type == 0 ? i : i++;
-			print_argument(&flag_bag, ap);
-			ret += flag_bag.ret;
+			bulid_bag(&bag);
+			gather_flags(format, &i, &bag, ap);
+			bag.type == 0 ? i : i++;
+			print_argument(&bag, ap);
+			ret += bag.ret;
 			start = i;
 		}
 		if (format[i] != '\0' && format[i] != '%')
