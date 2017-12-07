@@ -84,21 +84,19 @@ char	*convert_octal(unsigned long int nb)
 }
 #include <stdio.h>
 
-char	*convert(t_flags *flag_bag, long long int nb)
+char	*convert(t_flags *bag, long long int nb)
 {
-
-	if (flag_bag->type == 'b')
+	if (TYPE == 'b')
 		return (convert_binary(nb));
 	
-	if (flag_bag->type == 'o' || flag_bag->type == 'O')
+	if (TYPE == 'o' || TYPE == 'O')
 		return (convert_octal(nb));
 	
-	if (flag_bag->type == 'x' || flag_bag->type == 'X' || flag_bag->type == 'p')
-		return (convert_hex(nb, flag_bag->type));
+	if (TYPE == 'x' || TYPE == 'X' || TYPE == 'p')
+		return (convert_hex(nb, TYPE));
 	
-	if (flag_bag->type == 'u' || flag_bag->type == 'U')
+	if (TYPE == 'u' || TYPE == 'U')
 		return (ft_itoa(nb));
-	
 	
 	return (NULL);
 }
