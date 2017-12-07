@@ -15,9 +15,9 @@
 
 int		colors(char *s, t_flags *bag)
 {
-	if (ft_strcmp(s, BLACK) == 0 || ft_strcmp(s, BLUE) == 0 || ft_strcmp(s, YELLOW) == 0 ||
-			ft_strcmp(s, NORMAL) == 0 || ft_strcmp(s, GREEN) == 0 || ft_strcmp(s, MAGNETA) == 0 ||
-			ft_strcmp(s, CYAN) == 0 || ft_strcmp(s, RED) == 0 ||ft_strcmp(s, WHITE) == 0)
+	if (ft_strcmp(s, YELLOW) == 0 || ft_strcmp(s, BLACK) == 0 || ft_strcmp(s, WHITE) == 0 ||
+		ft_strcmp(s, NORMAL) == 0 || ft_strcmp(s, GREEN) == 0 || ft_strcmp(s, CYAN) == 0 ||
+		ft_strcmp(s, MAGNETA) == 0 || ft_strcmp(s, RED) == 0 || ft_strcmp(s, BLUE) == 0)
 	{
 		ft_putstr(s, bag);
 		return (1);
@@ -29,57 +29,37 @@ int		colors(char *s, t_flags *bag)
 ** print_width prints both precision and width for either characher or string
 */
 
-#include <stdio.h>
-void	print_width(t_flags *bag)
+void	parse(t_flags *bag)
 {
-	int i;
+	ZERO = PRECISION < 0 ? false : ZERO;
+	LEN = (PRECISION < LEN && IF_PREC == true) ? PRECISION : LEN;
+	WIDTH = (TYPE == 'c' && PRECISION < 0) ? 0 : WIDTH;
+	WIDTH = (PRECISION < 0) ? PRECISION * -1 : WIDTH - LEN;
 	
-	i = -1;
-	if (PRECISION < 0)
-	{
-		if (TYPE == 's')
-			WIDTH = PRECISION * -1 + LEN;
-		else
-			WIDTH = PRECISION * -1;
-		ZERO = false;
-	}
-	if (ZERO == true)
-		while (++i < WIDTH - LEN)
-			ft_putchar('0', bag);
-	else
-		while (++i < WIDTH - LEN)
-			ft_putchar(' ', bag);
 }
 
 /*
-** ------------------------------------ STRING - S ------------------------------------------
+** ------------------------------------ STRING - s ------------------------------------------
 */
 
 
 void	print_string(t_flags *bag, va_list ap)
 {
 	char *str;
-	int i;
 	
 	str = va_arg(ap, char *);
-	
 	str = (str == NULL ? "(null)" : str);
-//	if (colors(str, bag) == 1)
-//		return ;
-	LEN = (PRECISION < ft_strlen(str) && IF_PREC == true) ? PRECISION : ft_strlen(str);
-	
+	if (colors(str, bag) == 1)
+		return ;
+	LEN = ft_strlen(str);
+	parse(bag);
 	if (MINUS == false)
-		print_width(bag);
-	
-	i = 0;
-	if (IF_PREC == true)
-		while (i < PRECISION && str[i] != '\0')
-			ft_putchar(str[i++], bag);
-	else
-		while (str[i] != '\0')
-			ft_putchar(str[i++], bag);
-	if (MINUS == true)
-		print_width(bag);
+		while (WIDTH-- > 0)
+			ZERO == true ? ft_putchar('0', bag) : ft_putchar(' ', bag);
+	while (LEN-- > 0 && *str != '\0')
+			ft_putchar(*str++, bag);
+	while (WIDTH-- > 0)
+		ft_putchar(' ', bag);
 }
 
 /*
@@ -92,11 +72,11 @@ void	print_char(t_flags *bag, va_list ap)
 	
 	x = (unsigned char)va_arg(ap, int);
 	LEN = 1;
-	if (MINUS == false && PRECISION > -1)
-		print_width(bag);
-	
+	parse(bag);
+	if (MINUS == false)
+		while (WIDTH-- > 0)
+			ZERO == true ? ft_putchar('0', bag) : ft_putchar(' ', bag);
 	ft_putchar(x, bag);
-	
-	if (MINUS == true || PRECISION < 0)
-		print_width(bag);
+	while (WIDTH-- > 0)
+		ft_putchar(' ', bag);
 }

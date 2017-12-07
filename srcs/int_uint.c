@@ -16,12 +16,12 @@
 ** print_width_int prints both precision and width
 */
 
-# define RETURN_H ((TYPE == 'i' || TYPE == 'd')) ? (short int)(va_arg(ap, void*)) : (unsigned short int)(va_arg(ap, void*))
+# define RETURN_H 	(TYPE == 'i' || TYPE == 'd') ? (short int)(va_arg(ap, void*)) : (unsigned short int)(va_arg(ap, void*))
 # define RETURN_HH	(TYPE == 'i' || TYPE == 'd') ? (char)va_arg(ap, void*) : (unsigned char)(va_arg(ap, void*))
 # define RETURN_L	(TYPE == 'i' || TYPE == 'd' || TYPE == 'D') ? (long int)va_arg(ap, void*) : (unsigned long int)(va_arg(ap, void*))
 # define RETURN_LL	(TYPE == 'i' || TYPE == 'd') ? (long long int)va_arg(ap, void*) : (unsigned long long int)va_arg(ap, void*)
 # define RETURN_J	(TYPE == 'i' || TYPE == 'd') ? (intmax_t)va_arg(ap, void*) : (uintmax_t)va_arg(ap, void*)
-# define RETURN_Z	(size_t)va_arg(ap, void*)
+# define RETURN_Z	(size_t)va_arg(ap, size_t)
 
 long long int assign_value(t_flags *bag, va_list ap)
 {
@@ -111,8 +111,8 @@ void	print_unsigned_int(t_flags *bag, va_list ap)
 	char *print;
 	
 	nb = assign_value(bag, ap);
-	print = convert(bag, nb);
-//	printf("s: %s\n", print);
+//	printf("[[[[[[%llu]]]]]\n", nb);
+	print = (nb > LL_MAX && ARGUMENT != 5) ? ft_ulltoa(nb) : convert(bag, nb);
 	LEN = nb == 0 ? 0 : ft_strlen(print);
 	parse_unsigned_int(bag);
 	if (ZERO == true)

@@ -13,7 +13,7 @@
 #include "../includes/libftprintf.h"
 #include <stdio.h>
 
-void		ucount(unsigned long long int nb, unsigned int *size)
+void		ucount(unsigned long long int nb, int *size)
 {
 	while (nb != 0)
 	{
@@ -22,23 +22,24 @@ void		ucount(unsigned long long int nb, unsigned int *size)
 	}
 }
 
-char	*ft_ulltoa(unsigned long long nb)
+char	*ft_ulltoa(unsigned long long int nb)
 {
 	char *str;
-	unsigned int size;
-//	printf("HEREEE\n");
+	int size;
+	
 	size = 0;
-	str = (char *)malloc(21);
 	ucount(nb, &size);
+	str = (char *)malloc(size);
+	
 	
 	str[size--] = '\0';
-	
-	while (size-- > 0)
+
+	while (size > -1)
 	{
 		str[size--] = nb % 10 + 48;
 		nb /= 10;
 	}
-//	printf("[%s]\n", str);
+
 	return (str);
 }
 
