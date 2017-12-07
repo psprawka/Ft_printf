@@ -11,13 +11,43 @@
 /* ************************************************************************** */
 
 #include "../includes/libftprintf.h"
+#include <stdio.h>
+
+void		ucount(unsigned long long int nb, unsigned int *size)
+{
+	while (nb != 0)
+	{
+		*size += 1;
+		nb /= 10;
+	}
+}
+
+char	*ft_ulltoa(unsigned long long nb)
+{
+	char *str;
+	unsigned int size;
+//	printf("HEREEE\n");
+	size = 0;
+	str = (char *)malloc(21);
+	ucount(nb, &size);
+	
+	str[size--] = '\0';
+	
+	while (size-- > 0)
+	{
+		str[size--] = nb % 10 + 48;
+		nb /= 10;
+	}
+//	printf("[%s]\n", str);
+	return (str);
+}
+
 
 /*
 ** ---------------------------------- INTEGER TO STRING --------------------------------------
 */
-#include <stdio.h>
 
-static void		count(long long int n, unsigned int *size)
+void		count(long long int n, unsigned int *size)
 {
 	while (n != 0)
 	{
@@ -26,7 +56,7 @@ static void		count(long long int n, unsigned int *size)
 	}
 }
 
-static void		fill_table(int if_neg, long long int n, char *tab, int size)
+void		fill_table(int if_neg, long long int n, char *tab, int size)
 {
 	tab += size;
 	
@@ -50,7 +80,6 @@ static void		fill_table(int if_neg, long long int n, char *tab, int size)
 		if ((if_neg == 1) && (size == 0))
 			*tab = '-';
 		else
-			
 			*tab-- = n % 10 + 48;
 		n /= 10;
 	}
@@ -63,7 +92,7 @@ char			*ft_itoa(long long int n)
 	unsigned int	size;
 	char			*tab = NULL;
 	int				if_neg;
-//	printf("number: %lld\n", n);
+
 	if_neg = (n < 0 ? 1 : 0);
 	size = (n < 0 ? 1 : 0);
 	count(n, &size);
