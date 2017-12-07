@@ -13,30 +13,30 @@
 #include "../includes/libftprintf.h"
 
 /*
-** argument prototype: %[flags][width/margin][.precision][hh|h|l|ll|j|z]type
-**
-** flags:			'+' || '-' || ' ' || '#' || '0';
-**
-** width/margin:	min amount of displayed digits, does not cut digits if less,
-**					fill with spaces on the left side;
-**					if '*' added it's necessary to pass one more parameter with a
-**					number of spaces before the actual parameter;
-**
-** .precision:		for diouxX min amount of digits, fill with 0 is necessary;
-**					for eEf amount of digits after dot;
-**					for gG amount of all digits, if bigger displays number;
-**					for sS max amount of characters;
-**					if '*' added is necessary to pass one more parameter with a
-**					number of spaces before the actual parameter;
-**
-** hh|h|l|ll|j|z:	default values' modification:
-**					hh: for idouxX - char;
-**					h: for idouxX - short int;
-**					l: for idouxX - long int, for feE - double;
-**					ll: for idouxX - long long int;
-**					j: for idouxX - intmax_t;
-**					z: for idouxX - size_t;
-*/
+ ** argument prototype: %[flags][width/margin][.precision][hh|h|l|ll|j|z]type
+ **
+ ** flags:			'+' || '-' || ' ' || '#' || '0';
+ **
+ ** width/margin:	min amount of displayed digits, does not cut digits if less,
+ **					fill with spaces on the left side;
+ **					if '*' added it's necessary to pass one more parameter with a
+ **					number of spaces before the actual parameter;
+ **
+ ** .precision:		for diouxX min amount of digits, fill with 0 is necessary;
+ **					for eEf amount of digits after dot;
+ **					for gG amount of all digits, if bigger displays number;
+ **					for sS max amount of characters;
+ **					if '*' added is necessary to pass one more parameter with a
+ **					number of spaces before the actual parameter;
+ **
+ ** hh|h|l|ll|j|z:	default values' modification:
+ **					hh: for idouxX - char;
+ **					h: for idouxX - short int;
+ **					l: for idouxX - long int, for feE - double;
+ **					ll: for idouxX - long long int;
+ **					j: for idouxX - intmax_t;
+ **					z: for idouxX - size_t;
+ */
 
 void	bulid_bag(t_flags *bag)
 {
@@ -47,6 +47,7 @@ void	bulid_bag(t_flags *bag)
 	bag->zero = false;
 	bag->ifprec = false;
 	bag->display = true;
+	bag->type = 0;
 	bag->width = 0;
 	bag->precision = 0;
 	bag->argument = 0;
@@ -54,15 +55,12 @@ void	bulid_bag(t_flags *bag)
 	bag->len = 0;
 }
 
-
-
 void gather_flags(char *f, int *i, t_flags *bag, va_list ap)
 {
 	*i += 1;
-	while (f[*i] != '\0' && (f[*i] == '.' || f[*i] == '-' || f[*i] == '+' ||
-			f[*i] == ' ' || f[*i] == '#' || f[*i] == '0' || f[*i] == '*' ||
-			f[*i] == 'h' || f[*i] == 'l' || f[*i] == 'j' || f[*i] == 'z' ||
-			(f[*i] >= '0' && f[*i] <= '9')))
+	while (f[*i] != '\0' && (f[*i] == '.' || f[*i] == '-' || f[*i] == '+' || f[*i] == ' ' ||
+			f[*i] == '#' || f[*i] == '0' || f[*i] == '*' || f[*i] == 'h' || f[*i] == 'l' ||
+			f[*i] == 'j' || f[*i] == 'z' || (f[*i] >= '0' && f[*i] <= '9')))
 	{
 		flags(f, i, bag);
 		width(f, i, bag, ap);
@@ -76,7 +74,7 @@ void gather_flags(char *f, int *i, t_flags *bag, va_list ap)
 void	print_perc(t_flags *bag)
 {
 	int		width;
-
+	
 	width = 0;
 	if (MINUS == false)
 		while (width++ < WIDTH - 1)
@@ -86,7 +84,6 @@ void	print_perc(t_flags *bag)
 		while (width++ < WIDTH -1)
 			ZERO == true ? ft_putchar('0', bag) : ft_putchar(' ', bag);
 }
-
 
 void	print_argument(t_flags *bag, va_list ap)
 {
@@ -102,17 +99,18 @@ void	print_argument(t_flags *bag, va_list ap)
 		print_pointer(bag, ap);
 	if (TYPE == 'f' || TYPE == 'F')
 		print_float(bag, ap);
-	if (TYPE == 'o' || TYPE == 'O' || TYPE == 'u' || TYPE == 'U' ||
-		TYPE == 'x' || TYPE == 'X' || TYPE == 'b')
+	if (TYPE == 'o' || TYPE == 'O' || TYPE == 'u' ||
+		TYPE == 'U' || TYPE == 'x' || TYPE == 'X' ||
+		TYPE == 'b')
 		print_unsigned_int(bag, ap);
 }
 
 int		solve(char *format, va_list ap)
 {
-	int			i;
-	int			ret;
-	int			start;
-	t_flags 	bag;
+	int		i;
+	int		ret;
+	int		start;
+	t_flags bag;
 
 	i = 0;
 	start = 0;
@@ -149,5 +147,3 @@ int		ft_printf(const char *format, ...)
 	va_end(ap);
 	return (ret);
 }
-
-

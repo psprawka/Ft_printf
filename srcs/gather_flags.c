@@ -12,34 +12,34 @@
 
 #include "../includes/libftprintf.h"
 
-void	flags(char *f, int *i, t_flags *flag_bag)
+void	flags(char *f, int *i, t_flags *bag)
 {
 	while (f[*i] != '\0' && (f[*i] == '+' || f[*i] == '-' ||
 			f[*i] == '0' || f[*i] == ' ' || f[*i] == '#'))
 	{
 		if (f[*i] == '+')
 		{
-			flag_bag->plus = true;
-			flag_bag->space = false;
+			PLUS = true;
+			SPACE = false;
 		}
 		if (f[*i] == '-')
 		{
-			flag_bag->minus = true;
-			flag_bag->zero = false;
+			MINUS = true;
+			ZERO = false;
 		}
 		if (f[*i] == '#')
-			flag_bag->hash = true;
+			HASH = true;
 		if (f[*i] == '0')
-			if (flag_bag->minus == false)
-				flag_bag->zero = true;
+			if (MINUS == false)
+				ZERO = true;
 		if (f[*i] == ' ')
-			if (flag_bag->plus == false)
-				flag_bag->space = true;
+			if (PLUS == false)
+				SPACE = true;
 		*i += 1;
 	}
 }
 
-void	width(char *f, int *i, t_flags *flag_bag, va_list ap)
+void	width(char *f, int *i, t_flags *bag, va_list ap)
 {
 	char	*ptr;
 
@@ -48,42 +48,42 @@ void	width(char *f, int *i, t_flags *flag_bag, va_list ap)
 	{
 		if (f[*i] == '*')
 		{
-			flag_bag->width = va_arg(ap, int);
+			WIDTH = va_arg(ap, int);
 			*i += 1;
 		}
 		else
 		{
 			ptr += *i;
-			flag_bag->width = ft_atoi(ptr);
+			WIDTH = ft_atoi(ptr);
 			while (f[*i] > 47 && f[*i] < 58)
 				*i += 1;
 		}
 	}
-//	flags(f, i, flag_bag);
+//	flags(f, i, bag);
 }
 
-void	precision(char *f, int *i, t_flags *flag_bag, va_list ap)
+void	precision(char *f, int *i, t_flags *bag, va_list ap)
 {
 	char	*ptr;
 
 	ptr = f;
-//	flag_bag->ifprec = false;
-	flag_bag->precision = 0;
+//	IF_PREC = false;
+	PRECISION = 0;
 	if (f[*i] != '.')
 		return ;
-	flag_bag->ifprec = true;
+	IF_PREC = true;
 	*i += 1;
 	while (f[*i] != '\0' &&  (f[*i] == '-' || f[*i] == '*' || (f[*i] > 47 && f[*i] < 58)))
 	{
 		if (f[*i] == '*')
 		{
-			flag_bag->precision = va_arg(ap, int);
+			PRECISION = va_arg(ap, int);
 			*i += 1;
 		}
 		else
 		{
 			ptr += *i;
-			flag_bag->precision = ft_atoi(ptr);
+			PRECISION = ft_atoi(ptr);
 			while ((f[*i] != '\0' && f[*i] > 47 && f[*i] < 58) || f[*i] == '-')
 				*i += 1;
 		}
@@ -91,7 +91,7 @@ void	precision(char *f, int *i, t_flags *flag_bag, va_list ap)
 }
 
 /*
- ** flag_bag->argument may egual:
+ ** bag->argument may egual:
  ** - 1 if h appears;
  ** - 2 if hh appears;
  ** - 3 if l appears;
@@ -100,32 +100,32 @@ void	precision(char *f, int *i, t_flags *flag_bag, va_list ap)
  ** - 6 if z appears;
  */
 
-void	arguments(char *f, int *i, t_flags *flag_bag)
+void	arguments(char *f, int *i, t_flags *bag)
 {
 	while (f[*i] != '\0' && (f[*i] == 'h' || f[*i] == 'l' || f[*i] == 'z' || f[*i] == 'j'))
 	{
-		if (f[*i] == 'h' && flag_bag->argument == 1)
-			flag_bag->argument = 2;
+		if (f[*i] == 'h' && ARGUMENT == 1)
+			ARGUMENT = 2;
 		else
 			if (f[*i] == 'h')
-				flag_bag->argument = 1;
+				ARGUMENT = 1;
 		else
-			if (f[*i] == 'l' && flag_bag->argument == 3)
-				flag_bag->argument = 4;
+			if (f[*i] == 'l' && ARGUMENT == 3)
+				ARGUMENT = 4;
 		else
 			if (f[*i] == 'l')
-				flag_bag->argument = 3;
+				ARGUMENT = 3;
 		else
 			if (f[*i] == 'j')
-				flag_bag->argument = 5;
+				ARGUMENT = 5;
 		else
 			if (f[*i] == 'z')
-				flag_bag->argument = 6;
+				ARGUMENT = 6;
 		*i += 1;
 	}
 }
 
-void	type(char type, t_flags *flag_bag)
+void	type(char type, t_flags *bag)
 {
 
 	
@@ -133,7 +133,7 @@ void	type(char type, t_flags *flag_bag)
 		type == 'i' || type == 'o' || type == 'O' || type == 'u' || type == 'X' ||
 		type == 'U' || type == 'x' || type == 'c' || type == 'C' || type == 'E' ||
 		type == 'e' || type == 'f' || type == 'F' || type == '%' || type == 'b')
-		flag_bag->type = type;
-	if ((type == 'S') || (type == 's' && flag_bag->argument == 'l'))
+		TYPE = type;
+	if ((type == 'S') || (type == 's' && ARGUMENT == 'l'))
 		exit(0);
 }
