@@ -12,20 +12,20 @@
 
 #include "../includes/libftprintf.h"
 
-void	ft_putchar(char c, t_flags *flag_bag)
+void	ft_putchar(char c, t_flags *bag)
 {
 	write(1, &c, 1);
-	flag_bag->ret += 1;
+	bag->ret += 1;
 }
 
 
-void	ft_putstr(char const *s, t_flags *flag_bag)
+void	ft_putstr(char const *s, t_flags *bag)
 {
 	int	i;
 	
 	i = 0;
 	while (s[i])
-		ft_putchar(s[i++], flag_bag);
+		ft_putchar(s[i++], bag);
 }
 
 int		ft_strcmp(char *s1, char *s2)
@@ -95,24 +95,24 @@ char	*ft_strrev(char *str)
 }
 
 
-void	ft_putnbr(long int nb, t_flags *flag_bag)
+void	ft_putnbr(long int nb, t_flags *bag)
 {
 	if (nb == -9223372036854775807 - 1)
 	{
-		ft_putstr("-9223372036854775808", flag_bag);
+		ft_putstr("-9223372036854775808", bag);
 		return ;
 	}
 	if (nb < 0)
 	{
-		ft_putchar('-', flag_bag);
+		ft_putchar('-', bag);
 		nb = -nb;
 	}
 	if (nb < 10)
 	{
-		ft_putchar(nb + 48, flag_bag);
+		ft_putchar(nb + 48, bag);
 		return ;
 	}
-	ft_putnbr(nb / 10, flag_bag);
-	ft_putchar(nb % 10 + 48, flag_bag);
+	ft_putnbr(nb / 10, bag);
+	ft_putchar(nb % 10 + 48, bag);
 	return ;
 }
