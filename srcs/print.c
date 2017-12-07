@@ -23,31 +23,33 @@ void	print(int start, int end, char *format)
 		print_format(format[start++]);
 }
 
-void	print_plus(t_flags *flag_bag, long int *nb)
+void	print_plus(t_flags *bag, long int *nb)
 {
-	if (flag_bag->plus == true)
+	if (PLUS == true)
 		if (*nb > -1)
-			ft_putchar('+', flag_bag);
+			ft_putchar('+', bag);
 	if (*nb < 0 && *nb != (-9223372036854775807 - 1))
 	{
-		ft_putchar('-', flag_bag);
+		ft_putchar('-', bag);
 		*nb *= -1;
 	}
-	flag_bag->plus = false;
+	PLUS = false;
 }
 
-void	print_hash(t_flags *flag_bag, unsigned long long int nb)
+void	print_hash(t_flags *bag, unsigned long long int nb)
 {
-	if (flag_bag->type == 'x' || flag_bag->type == 'X' || flag_bag->type == 'p')
+	if (TYPE == 'x' || TYPE == 'X')
 	{
-		if (flag_bag->hash == true && nb != 0)
-			(flag_bag->type == 'x' || flag_bag->type == 'p')
-				? ft_putstr("0x", flag_bag) : ft_putstr("0X", flag_bag);
+		if (HASH == true && nb != 0)
+			(TYPE == 'x')	? ft_putstr("0x", bag) : ft_putstr("0X", bag);
 	}
-	if (flag_bag->type == 'o' || flag_bag->type == 'O')
+	if (TYPE == 'o' || TYPE == 'O')
 	{
-		if (flag_bag->hash == true && flag_bag->precision - flag_bag->len < 0)
-			ft_putstr("0", flag_bag);
+		if (HASH == true && PRECISION - LEN < 0)
+			ft_putstr("0", bag);
 	}
-	flag_bag->hash = false;
+	if (TYPE == 'p' && HASH == true)
+		ft_putstr("0x", bag);
+	
+	HASH = false;
 }
