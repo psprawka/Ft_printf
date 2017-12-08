@@ -112,7 +112,8 @@ void	print_unsigned_int(t_flags *bag, va_list ap)
 	
 	nb = assign_value(bag, ap);
 //	printf("[[[[[[%llu]]]]]\n", nb);
-	print = (nb > LL_MAX && (ARGUMENT != 5 || (ARGUMENT == 5 && TYPE == 'u'))) ? ft_ulltoa(nb) : convert(bag, nb);
+	print = (nb > LL_MAX && TYPE == 'u') ? ft_ulltoa(nb) : convert(bag, nb);
+	
 	LEN = nb == 0 ? 0 : ft_strlen(print);
 	parse_unsigned_int(bag);
 	if (ZERO == true)
