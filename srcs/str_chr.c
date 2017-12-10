@@ -67,7 +67,7 @@ void	print_wchar_str(t_flags *bag, va_list ap)
 {
 	char	*str;
 	wchar_t* wstr;
-	
+
 	setlocale(LC_ALL, "");
 	wstr = va_arg(ap, wchar_t*);
 	str = convert_uni(*wstr++);
@@ -108,7 +108,7 @@ void	print_wchar(t_flags *bag, va_list ap)
 	char	*x;
 	wchar_t	wx;
 	setlocale(LC_ALL, "");
-	wx = va_arg(ap, wchar_t);
+	wx = va_arg(ap, wint_t);
 	x = convert_uni((wchar_t)(wx));
 	LEN = 1;
 	parse(bag);
