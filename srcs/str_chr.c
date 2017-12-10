@@ -33,7 +33,6 @@ void	parse(t_flags *bag)
 {
 	ZERO = PRECISION < 0 ? false : ZERO;
 	LEN = (PRECISION < LEN && IF_PREC == true) ? PRECISION : LEN;
-	
 	WIDTH = (PRECISION < 0) ? PRECISION * -1 : WIDTH - LEN;
 	WIDTH = (TYPE == 'c' && PRECISION < 0) ? 0 : WIDTH;
 }
@@ -43,10 +42,23 @@ void	parse(t_flags *bag)
 */
 
 
+int	decode_uni(char c, t_flags *bag)
+{
+	wchar_t test;
+	
+	test = 65533;
+	if (c > 127 || c < 0)
+	{
+		ft_putstr(convert_uni(test), bag);
+		return (1);
+	}
+	return (0);
+}
+
+
 void	print_string(t_flags *bag, va_list ap)
 {
 	char *str;
-	
 	str = va_arg(ap, char *);
 	str = (str == NULL ? "(null)" : str);
 	if (colors(str, bag) == 1)
@@ -57,18 +69,16 @@ void	print_string(t_flags *bag, va_list ap)
 		while (WIDTH-- > 0)
 			ZERO == true ? ft_putchar('0', bag) : ft_putchar(' ', bag);
 	while (LEN-- > 0 && *str != '\0')
-			ft_putchar(*str++, bag);
+		decode_uni(*str, bag) == 0 ? ft_putchar(*str++, bag) : str++;
 	while (WIDTH-- > 0)
 		ft_putchar(' ', bag);
 }
 
-#include <locale.h>
 void	print_wchar_str(t_flags *bag, va_list ap)
 {
 	char	*str;
 	wchar_t* wstr;
 
-	setlocale(LC_ALL, "");
 	wstr = va_arg(ap, wchar_t*);
 	str = convert_uni(*wstr++);
 	while (*wstr != '\0')
@@ -107,7 +117,6 @@ void	print_wchar(t_flags *bag, va_list ap)
 {
 	char	*x;
 	wchar_t	wx;
-	setlocale(LC_ALL, "");
 	wx = va_arg(ap, wint_t);
 	x = convert_uni((wchar_t)(wx));
 	LEN = 1;
