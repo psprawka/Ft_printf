@@ -18,6 +18,30 @@ void	ft_putchar(char c, t_flags *bag)
 	bag->ret += 1;
 }
 
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*f;
+	int		i;
+	
+	if (!s1 || !s2)
+		return (NULL);
+	i = 0;
+	if (!(f = (char *)malloc(ft_strlen((char *)s1)
+							 + ft_strlen((char *)s2) + 1)))
+		return (NULL);
+	while (s1[i])
+	{
+		f[i] = s1[i];
+		i++;
+	}
+	while (*s2)
+	{
+		f[i] = *s2++;
+		i++;
+	}
+	f[i] = '\0';
+	return (f);
+}
 
 void	ft_putstr(char const *s, t_flags *bag)
 {
@@ -50,6 +74,21 @@ int		ft_strlen(char *str)
 	while (str[i] != '\0')
 		i++;
 	return (i);
+}
+
+char	*ft_strnew(size_t size)
+{
+	char	*tab;
+	int		i;
+//
+	i = 0;
+	if (!(tab = (char *)malloc(size + 1)))
+		return (NULL);
+//	return (ft_memalloc(size + 1));
+//	size++;
+	while (i < size + 1)
+		tab[i++] = '\0';
+	return (tab);
 }
 
 

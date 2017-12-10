@@ -89,17 +89,22 @@ void	print_argument(t_flags *bag, va_list ap)
 {
 	if (TYPE == '%')
 		print_perc(bag);
-	if (TYPE == 's')
+	else if (TYPE == 's')
 		print_string(bag, ap);
-	if (TYPE == 'c' || TYPE == 'C')
+	else if (TYPE == 'S')
+		print_wchar_str(bag, ap);
+	else if ((TYPE == 'c' && ARGUMENT == 3) || TYPE == 'C')
+		print_wchar(bag, ap);
+	else if (TYPE == 'c')
 		print_char(bag, ap);
-	if (TYPE == 'd' || TYPE == 'D' || TYPE == 'i')
+	
+	else if (TYPE == 'd' || TYPE == 'D' || TYPE == 'i')
 		print_int(bag, ap);
-	if (TYPE == 'p')
+	else if (TYPE == 'p')
 		print_pointer(bag, ap);
-	if (TYPE == 'f' || TYPE == 'F')
+	else if (TYPE == 'f' || TYPE == 'F')
 		print_float(bag, ap);
-	if (TYPE == 'o' || TYPE == 'O' || TYPE == 'u' ||
+	else if (TYPE == 'o' || TYPE == 'O' || TYPE == 'u' ||
 		TYPE == 'U' || TYPE == 'x' || TYPE == 'X' ||
 		TYPE == 'b')
 		print_unsigned_int(bag, ap);

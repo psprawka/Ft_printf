@@ -59,7 +59,6 @@ void	width(char *f, int *i, t_flags *bag, va_list ap)
 				*i += 1;
 		}
 	}
-//	flags(f, i, bag);
 }
 
 void	precision(char *f, int *i, t_flags *bag, va_list ap)
@@ -67,7 +66,6 @@ void	precision(char *f, int *i, t_flags *bag, va_list ap)
 	char	*ptr;
 
 	ptr = f;
-//	IF_PREC = false;
 	PRECISION = 0;
 	if (f[*i] != '.')
 		return ;
@@ -134,6 +132,7 @@ void	type(char type, t_flags *bag)
 		type == 'U' || type == 'x' || type == 'c' || type == 'C' || type == 'E' ||
 		type == 'e' || type == 'f' || type == 'F' || type == '%' || type == 'b')
 		TYPE = type;
-	if ((type == 'S') || (type == 's' && ARGUMENT == 'l'))
-		exit(0);
+//	if ((type == 'S') || (type == 's' && ARGUMENT == 3))
+//		exit(0);
 }
+

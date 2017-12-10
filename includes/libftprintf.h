@@ -19,6 +19,7 @@
 # include <stddef.h>
 # include <stdint.h>
 # include <stdbool.h>
+# include <wchar.h>
 
 # define HEX_SMALL 	"0123456789abcdef"
 # define HEX_LARGE 	"0123456789ABCDEF"
@@ -89,15 +90,16 @@ typedef struct		s_flags
 	
 }					t_flags;
 
-
 /*
 ** libft functions:
 */
 
 char	*ft_ftoa(double n);
 char	*ft_strrev(char *str);
+char	*ft_strnew(size_t size);
 char	*ft_itoa(long long int n);
 char	*ft_ulltoa(unsigned long long nb);
+char	*ft_strjoin(char const *s1, char const *s2);
 
 void	*ft_memalloc(size_t size);
 void	ft_putnbr(long int nb, t_flags *bag);
@@ -132,5 +134,9 @@ void	type(char type, t_flags *bag);
 char	*convert(t_flags *bag, long long int nb);
 char	*convert_octal(unsigned long int nb);
 char	*convert_hex(unsigned long int nb, char type);
+char	*convert_uni(wchar_t wide);
 
+
+char	*ft_strcat(char *s1, const char *s2);
+char	*ft_strdup(const char *s1);
 #endif
