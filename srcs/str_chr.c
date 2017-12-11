@@ -59,7 +59,7 @@ int	decode_uni(char c, t_flags *bag)
 void	print_string(t_flags *bag, va_list ap)
 {
 	char *str;
-	str = va_arg(ap, char *);
+	str = (char *)va_arg(ap, void *);
 	str = (str == NULL ? "(null)" : str);
 	if (colors(str, bag) == 1)
 		return ;
@@ -81,6 +81,7 @@ void	print_wchar_str(t_flags *bag, va_list ap)
 
 	wstr = va_arg(ap, wchar_t*);
 	str = convert_uni(*wstr++);
+	
 	while (*wstr != '\0')
 		str = ft_strjoin(str, convert_uni(*wstr++));
 	LEN = ft_strlen(str);
@@ -95,7 +96,7 @@ void	print_wchar_str(t_flags *bag, va_list ap)
 }
 
 /*
-** ----------------------------- CHAR - c | WCHAR_T - C ------------------------------------
+** --------------------------------- CHAR - c, C --------------------------------------
 */
 
 void	print_char(t_flags *bag, va_list ap)
@@ -119,6 +120,7 @@ void	print_wchar(t_flags *bag, va_list ap)
 	wchar_t	wx;
 	wx = va_arg(ap, wint_t);
 	x = convert_uni((wchar_t)(wx));
+	
 	LEN = 1;
 	parse(bag);
 	if (MINUS == false)
@@ -128,6 +130,3 @@ void	print_wchar(t_flags *bag, va_list ap)
 	while (WIDTH-- > 0)
 		ft_putchar(' ', bag);
 }
-
-
-

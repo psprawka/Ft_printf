@@ -89,7 +89,7 @@ void	print_argument(t_flags *bag, va_list ap)
 {
 	if (TYPE == '%')
 		print_perc(bag);
-	else if (TYPE == 's')
+	else if (TYPE == 's' || TYPE == 'S')
 		print_string(bag, ap);
 	else if (TYPE == 'S')
 		print_wchar_str(bag, ap);
