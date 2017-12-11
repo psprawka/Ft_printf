@@ -93,11 +93,10 @@ void	print_argument(t_flags *bag, va_list ap)
 		print_string(bag, ap);
 	else if (TYPE == 'S')
 		print_wchar_str(bag, ap);
-	else if ((TYPE == 'c' && ARGUMENT == 3) || TYPE == 'C')
+	else if ((TYPE == 'c' && ARGUMENT == 3))// || TYPE == 'C')
 		print_wchar(bag, ap);
-	else if (TYPE == 'c')
+	else if (TYPE == 'c' || TYPE == 'C')
 		print_char(bag, ap);
-	
 	else if (TYPE == 'd' || TYPE == 'D' || TYPE == 'i')
 		print_int(bag, ap);
 	else if (TYPE == 'p')
