@@ -129,22 +129,5 @@ void	print_wchar(t_flags *bag, va_list ap)
 		ft_putchar(' ', bag);
 }
 
-void	print_wchar_C(t_flags *bag, va_list ap)
-{
-	char	*x;
-	wchar_t	wx[2];
-	
-	wx[0] = (char)va_arg(ap, wint_t);
-	wx[1] = '\0';
-//	x = convert_uni((wchar_t)(wx));
-	LEN = 1;
-	parse(bag);
-	if (MINUS == false)
-		while (WIDTH-- > 0)
-			ZERO == true ? ft_putchar('0', bag) : ft_putchar(' ', bag);
-	ft_putstr(wx, bag);
-	while (WIDTH-- > 0)
-		ft_putchar(' ', bag);
-}
 
 

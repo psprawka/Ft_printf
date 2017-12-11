@@ -124,6 +124,8 @@ void	print_float(t_flags *bag, va_list ap);
 void	print_string(t_flags *bag, va_list ap);
 void	print_pointer(t_flags *bag, va_list ap);
 void	print_unsigned_int(t_flags *bag, va_list ap);
+void	print_wchar(t_flags *bag, va_list ap);
+void	print_wchar_str(t_flags *bag, va_list ap);
 
 void	flags(char *f, int *i, t_flags *bag);
 void	width(char *f, int *i, t_flags *bag, va_list ap);
