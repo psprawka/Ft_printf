@@ -154,12 +154,13 @@ void	create_string(double nb, char *rest, int i)
 
 char			*ft_ftoa(double n)
 {
-	char	*flt;
-	char	*first;
-	int		i, nb;
-
+	char		*flt;
+	char		*first;
+	long int	nb;
+	int			i;
+	
 	i = -1;
-	nb = (int)n;
+	nb = ( long int)n;
 	first = ft_itoa(nb);
 	flt = (char *)malloc(100);
 	n -= (double)nb;
