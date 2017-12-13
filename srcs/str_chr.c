@@ -88,7 +88,7 @@ void	print_wchar_str(t_flags *bag, va_list ap)
 	wchar_t* wstr;
 
 	wstr = va_arg(ap, wchar_t*);
-	str = convert_uni(*wstr++);
+	str = ARGUMENT == 7 ? convert_uni(*wstr++) : convert_wide(wstr, ft_strlen((char *)wstr));
 	
 	while (*wstr != '\0')
 		str = ft_strjoin(str, convert_uni(*wstr++));
