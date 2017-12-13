@@ -41,25 +41,11 @@ void	parse(t_flags *bag)
 ** ----------------------------- STRING - s | WSTRING - S ---------------------------------
 */
 
-
-int	decode_uni(char c, t_flags *bag)
-{
-	wchar_t test;
-	
-	test = 65533;
-	if (c > 127 || c < 0)
-	{
-		ft_putstr(convert_uni(test), bag);
-		return (1);
-	}
-	return (0);
-}
-
-
 void	print_string(t_flags *bag, va_list ap)
 {
-	char *str;
-	str = (char *)va_arg(ap, void *);
+	char	*str;
+
+	str = va_arg(ap, char *);
 	str = (str == NULL ? "(null)" : str);
 	if (colors(str, bag) == 1)
 		return ;
@@ -69,9 +55,31 @@ void	print_string(t_flags *bag, va_list ap)
 		while (WIDTH-- > 0)
 			ZERO == true ? ft_putchar('0', bag) : ft_putchar(' ', bag);
 	while (LEN-- > 0 && *str != '\0')
-		ft_putchar((char)*str++, bag);
+		ft_putchar(*str++, bag);
 	while (WIDTH-- > 0)
 		ft_putchar(' ', bag);
+}
+
+char	*convert_wide(wchar_t *str, int len)
+{
+	char	*new;
+
+	new = (char *)malloc(len + 1);
+	if (!len)
+		*new = *str;
+	else
+	{
+		if (len < 2)
+			*new++ = 0xC0 | (*str >> 6);
+		else if (len < 3)
+			*new++ = 0xE0 | (*str >> 12);
+		else
+			*new++ = 0xF0 | (*str >> 18);
+		while (len-- > 0)
+			*new++ = 0x80 | ((*str >> (len * 6)) & 0x3F);
+	}
+	*new = '\0';
+	return (new);
 }
 
 void	print_wchar_str(t_flags *bag, va_list ap)
@@ -84,6 +92,7 @@ void	print_wchar_str(t_flags *bag, va_list ap)
 	
 	while (*wstr != '\0')
 		str = ft_strjoin(str, convert_uni(*wstr++));
+	
 	LEN = ft_strlen(str);
 	parse(bag);
 	if (MINUS == false)

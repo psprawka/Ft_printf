@@ -29,13 +29,14 @@
  **					if '*' added is necessary to pass one more parameter with a
  **					number of spaces before the actual parameter;
  **
- ** hh|h|l|ll|j|z:	default values' modification:
- **					hh: for idouxX - char;
- **					h: for idouxX - short int;
- **					l: for idouxX - long int, for feE - double;
- **					ll: for idouxX - long long int;
- **					j: for idouxX - intmax_t;
- **					z: for idouxX - size_t;
+ ** hh|h|l|ll|j|z|q:	default values' modification:
+ **						hh:	for idouxX - char;
+ **						h:	for idouxX - short int;
+ **						l:	for idouxX - long int, for feE - double;
+ **						ll:	for idouxX - long long int;
+ **						j:	for idouxX - intmax_t;
+ **						z:	for idouxX - size_t;
+ **						q:	for CS - prints Unicode
  */
 
 void	bulid_bag(t_flags *bag)
@@ -60,7 +61,7 @@ void gather_flags(char *f, int *i, t_flags *bag, va_list ap)
 	*i += 1;
 	while (f[*i] != '\0' && (f[*i] == '.' || f[*i] == '-' || f[*i] == '+' || f[*i] == ' ' ||
 			f[*i] == '#' || f[*i] == '0' || f[*i] == '*' || f[*i] == 'h' || f[*i] == 'l' ||
-			f[*i] == 'j' || f[*i] == 'z' || (f[*i] >= '0' && f[*i] <= '9')))
+			f[*i] == 'j' || f[*i] == 'z' || f[*i] == 'q' || (f[*i] >= '0' && f[*i] <= '9')))
 	{
 		flags(f, i, bag);
 		width(f, i, bag, ap);
@@ -87,13 +88,14 @@ void	print_perc(t_flags *bag)
 
 void	print_argument(t_flags *bag, va_list ap)
 {
+
 	if (TYPE == '%')
 		print_perc(bag);
-	else if (TYPE == 's' || TYPE == 'S')
-		print_string(bag, ap);
 	else if (TYPE == 'S')
 		print_wchar_str(bag, ap);
-	else if ((TYPE == 'c' && ARGUMENT == 3))// || TYPE == 'C')
+	else if (TYPE == 's')
+		print_string(bag, ap);
+	else if ((TYPE == 'c' && ARGUMENT == 3) || (TYPE == 'C' && ARGUMENT == 7))
 		print_wchar(bag, ap);
 	else if (TYPE == 'c' || TYPE == 'C')
 		print_char(bag, ap);
