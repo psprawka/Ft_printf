@@ -16,24 +16,17 @@
 ** print_width_int prints both precision and width
 */
 
-#define RETURN_H 	(TYPE == 'i' || TYPE == 'd') ? \
-	(short int)(va_arg(ap, void*)) : (unsigned short int)(va_arg(ap, void*))
+#define T			(TYPE == 'i' || TYPE == 'd')
+#define ARG			(va_arg(ap, void*))
 
-#define RETURN_HH	(TYPE == 'i' || TYPE == 'd') ? (char)va_arg(ap, void*) : \
-	(unsigned char)(va_arg(ap, void*))
-
-#define RETURN_L	(TYPE == 'i' || TYPE == 'd' || TYPE == 'D') ? \
-	(long int)va_arg(ap, void*) : (unsigned long int)(va_arg(ap, void*))
-
-#define RETURN_LL	(TYPE == 'i' || TYPE == 'd') ? \
-	(long long int)va_arg(ap, void*) : (unsigned long long int)va_arg(ap, void*)
-
-#define RETURN_J	(TYPE == 'i' || TYPE == 'd') ? \
-	(intmax_t)va_arg(ap, void*) : (uintmax_t)va_arg(ap, void*)
-
+#define RETURN_H 	T ? (short int)ARG : (unsigned short int)ARG
+#define RETURN_HH	T ? (char)ARG : (unsigned char)ARG
+#define RETURN_L	(T || TYPE == 'D') ? (long int)ARG : (unsigned long int)ARG
+#define RETURN_LL	T ? (long long int)ARG : (unsigned long long int)ARG
+#define RETURN_J	T ? (intmax_t)ARG : (uintmax_t)ARG
 #define RETURN_Z	(size_t)va_arg(ap, size_t)
 
-long long int assign_value(t_flags *bag, va_list ap)
+long long int	assign_value(t_flags *bag, va_list ap)
 {
 	if (TYPE != 'i' && TYPE != 'd' && TYPE != 'o' && TYPE != 'u' && TYPE != 'O'
 		&& TYPE != 'x' && TYPE != 'X')
@@ -60,12 +53,16 @@ long long int assign_value(t_flags *bag, va_list ap)
 }
 
 /*
-** ------------------------------------ INT - i, d, D --------------------------------------
+** ----------------------------- INT - i, d, D ---------------------------------
 */
 
-void	parse_int(t_flags *bag, long int nb)
+void			parse_int(t_flags *bag, long int nb)
 {
-	LEN = (nb == 0 && IF_PREC == true ? 0 : ft_strlen(ft_itoa(nb)));
+	char	*len;
+	
+	len = ft_itoa(nb);
+	LEN = (nb == 0 && IF_PREC == true ? 0 : ft_strlen(len));
+	free(len);
 	nb < 0 ? LEN-- : LEN;
 	PRECISION -= LEN;
 	WIDTH -= PRECISION > 0 ? PRECISION + LEN : LEN;
@@ -74,7 +71,7 @@ void	parse_int(t_flags *bag, long int nb)
 	WIDTH = SPACE == true && WIDTH < 1 && nb > 0 ? 1 : WIDTH;
 }
 
-void	print_int(t_flags *bag, va_list ap)
+void			print_int(t_flags *bag, va_list ap)
 {
 	long int nb;
 
@@ -94,10 +91,10 @@ void	print_int(t_flags *bag, va_list ap)
 }
 
 /*
-** -------------------------- UNSIGNED INT - o, O, u, U, x, X --------------------------------
+** -------------------- UNSIGNED INT - o, O, u, U, x, X ------------------------
 */
 
-void	parse_unsigned_int(t_flags *bag)
+void			parse_unsigned_int(t_flags *bag)
 {
 	DISPLAY = IF_PREC == true && PRECISION == 0 && ((HASH == false) ||
 			(HASH == true && (TYPE == 'x' || TYPE == 'X'))) ? false : true;
@@ -111,10 +108,10 @@ void	parse_unsigned_int(t_flags *bag)
 	ZERO = IF_PREC == true || SPACE == true ? false : ZERO;
 }
 
-void	print_unsigned_int(t_flags *bag, va_list ap)
+void			print_unsigned_int(t_flags *bag, va_list ap)
 {
-	unsigned long long int nb;
-	char *print;
+	unsigned long long int	nb;
+	char					*print;
 
 	nb = assign_value(bag, ap);
 	print = (nb > LL_MAX && TYPE == 'u') ? ft_ulltoa(nb) : convert(bag, nb);

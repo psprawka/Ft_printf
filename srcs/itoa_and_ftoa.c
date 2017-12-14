@@ -11,44 +11,12 @@
 /* ************************************************************************** */
 
 #include "../includes/libftprintf.h"
-#include <stdio.h>
-
-void		ucount(unsigned long long int nb, int *size)
-{
-	while (nb != 0)
-	{
-		*size += 1;
-		nb /= 10;
-	}
-}
-
-char	*ft_ulltoa(unsigned long long int nb)
-{
-	char *str;
-	int size;
-	
-	size = 0;
-	ucount(nb, &size);
-	str = (char *)malloc(size);
-	
-	
-	str[size--] = '\0';
-
-	while (size > -1)
-	{
-		str[size--] = nb % 10 + 48;
-		nb /= 10;
-	}
-
-	return (str);
-}
-
 
 /*
-** ---------------------------------- INTEGER TO STRING --------------------------------------
+** --------------------------- INTEGER TO STRING -------------------------------
 */
 
-void		count(long long int n, unsigned int *size)
+void	count(long long int n, unsigned int *size)
 {
 	while (n != 0)
 	{
@@ -57,25 +25,23 @@ void		count(long long int n, unsigned int *size)
 	}
 }
 
-void		fill_table(int if_neg, long long int n, char *tab, int size)
+void	fill_table(int if_neg, long long int n, char *tab, int size)
 {
 	tab += size;
-	
 	*tab-- = '\0';
-	if (n == -9223372036854775807 - 1)
+	if (n == LL_MIN)
 	{
 		*tab-- = '8';
 		n /= 10;
 		size--;
 	}
-	if (n > 9223372036854775807)
+	if (n > LL_MAX)
 	{
-		n = -9223372036854775807 + (n - 9223372036854775807) - 1;
+		n = LL_MIN + (n - LL_MIN) - 1;
 		if_neg = 1;
 	}
 	else
 		n = (if_neg == 1 ? n - n - n : n);
-
 	while (size-- > 0)
 	{
 		if ((if_neg == 1) && (size == 0))
@@ -84,14 +50,12 @@ void		fill_table(int if_neg, long long int n, char *tab, int size)
 			*tab-- = n % 10 + 48;
 		n /= 10;
 	}
-//	printf("tab: %s\n", tab);
 }
 
-char			*ft_itoa(long long int n)
+char	*ft_itoa(long long int n)
 {
-	
 	unsigned int	size;
-	char			*tab = NULL;
+	char			*tab;
 	int				if_neg;
 
 	if_neg = (n < 0 ? 1 : 0);
@@ -105,34 +69,37 @@ char			*ft_itoa(long long int n)
 }
 
 /*
-** ----------------------------------- FLOAT TO STRING --------------------------------------
+** ---------------------------- FLOAT TO STRING --------------------------------
 */
 
 /*
 **	DO NOT LISTEN A COMMET IN QUOTES BELOW!
 **
-**	"Round_down < 10 because we want to leave while loop once our float nb == 10,
+**	"Round_down < 10 because we want to leave while loop once our float nb == 10
 **	but since we want to cast nb == 10.000000 (float!) to round_down (int!)
-**	it will be rounded down to 9, so we need to add 0.000001 to float number (round up!)
-**	If you don't get it, use while loop attached below instead of while loop in my code:"
+**	it will be rounded down to 9, so we need to add 0.000001 to float number
+**	(round up!) If you don't get it, use while loop attached below instead of
+**	while loop in my code:"
 **
 **	while (round_down < 10)
 **	{
-**	nb *= 10;
-**	if (round_down = (int)(nb + 0.000001) != 10)
-**		rest[i++] = (int)(nb + 48 + 0.000001);
-**	printf("[%f]\n", nb);
-**	printf("round: %d\n", round_down);
-**	nb -= (int)nb;
-**	printf("str: %s\n", rest);
+**		nb *= 10;
+**		if (round_down = (int)(nb + 0.000001) != 10)
+**			rest[i++] = (int)(nb + 48 + 0.000001);
+**		printf("[%f]\n", nb);
+**		printf("round: %d\n", round_down);
+**		nb -= (int)nb;
+**		printf("str: %s\n", rest);
 **	}
 */
 
 void	create_string(double nb, char *rest, int i)
 {
-	int		afterdots = 0;
-	int		dot = 0;
+	int		afterdots;
+	int		dot;
 
+	dot = 0;
+	afterdots = 0;
 	if (nb < 1)
 	{
 		rest[i++] = '.';
@@ -151,16 +118,15 @@ void	create_string(double nb, char *rest, int i)
 	rest[i] = '\0';
 }
 
-
-char			*ft_ftoa(double n)
+char	*ft_ftoa(double n)
 {
 	char		*flt;
 	char		*first;
 	long int	nb;
 	int			i;
-	
+
 	i = -1;
-	nb = ( long int)n;
+	nb = (long int)n;
 	first = ft_itoa(nb);
 	flt = (char *)malloc(100);
 	n -= (double)nb;
@@ -169,5 +135,6 @@ char			*ft_ftoa(double n)
 	while (first[++i])
 		flt[i] = first[i];
 	create_string(n, flt, i);
+	free(first);
 	return (flt);
 }

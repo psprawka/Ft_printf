@@ -104,7 +104,7 @@ void	arguments(char *f, int *i, t_flags *bag)
 	{
 		if (f[*i] == 'h' && ARGUMENT == 1)
 			ARGUMENT = 2;
-		else if (f[*i] == 'h')
+		else if (f[*i] == 'h' && ARGUMENT != 6 && ARGUMENT != 5)
 			ARGUMENT = 1;
 		else if (f[*i] == 'l' && ARGUMENT == 3)
 			ARGUMENT = 4;

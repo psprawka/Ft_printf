@@ -25,10 +25,9 @@ void	print(int start, int end, char *format)
 
 void	print_plus(t_flags *bag, long int *nb)
 {
-	if (PLUS == true)
-		if (*nb > -1)
-			ft_putchar('+', bag);
-	if (*nb < 0 && *nb != (-9223372036854775807 - 1))
+	if (PLUS == true && *nb > -1)
+		ft_putchar('+', bag);
+	if (*nb < 0 && *nb != (LL_MIN))
 	{
 		ft_putchar('-', bag);
 		*nb *= -1;
@@ -38,32 +37,23 @@ void	print_plus(t_flags *bag, long int *nb)
 
 void	print_hash(t_flags *bag, unsigned long long int nb)
 {
-	if (TYPE == 'x' || TYPE == 'X')
-	{
-		if (HASH == true && nb != 0)
-			(TYPE == 'x')	? ft_putstr("0x", bag) : ft_putstr("0X", bag);
-	}
-	if (TYPE == 'o' || TYPE == 'O')
-	{
-		if (HASH == true && PRECISION - LEN < 0)
-			ft_putstr("0", bag);
-	}
+	if ((TYPE == 'x' || TYPE == 'X') && HASH == true && nb != 0)
+		(TYPE == 'x') ? ft_putstr("0x", bag) : ft_putstr("0X", bag);
+	if ((TYPE == 'o' || TYPE == 'O') && HASH == true && PRECISION - LEN < 0)
+		ft_putstr("0", bag);
 	if (TYPE == 'p' && HASH == true)
 		ft_putstr("0x", bag);
-	
 	HASH = false;
 }
 
 void	print_perc(t_flags *bag)
 {
 	int	width;
-	
+
 	width = 0;
-	if (MINUS == false)
-		while (width++ < WIDTH - 1)
-			ZERO == true ? ft_putchar('0', bag) : ft_putchar(' ', bag);
+	while (MINUS == false && width++ < WIDTH - 1)
+		ZERO == true ? ft_putchar('0', bag) : ft_putchar(' ', bag);
 	ft_putchar('%', bag);
-	if (MINUS == true)
-		while (width++ < WIDTH - 1)
-			ZERO == true ? ft_putchar('0', bag) : ft_putchar(' ', bag);
+	while (width++ < WIDTH - 1)
+		ZERO == true ? ft_putchar('0', bag) : ft_putchar(' ', bag);
 }

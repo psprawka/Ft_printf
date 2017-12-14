@@ -15,9 +15,9 @@
 #include "includes/libftprintf.h"
 #include <locale.h>
 
-int main(int ac, char **av)
+int main()
 {
-	int *b = 47;
+//	int *b = 47;
 	setlocale(LC_ALL, "");
 	
 //	printf("[their:	%%   %   %]\n", "test");
@@ -206,8 +206,8 @@ int main(int ac, char **av)
 //	printf("prec 10:			[%.10d]\n", -12);
 //	ft_printf("width 5 prec .:			[%5.d]\n", 0);
 //	printf("width 5 prec .:			[%5.d]\n", 0);
-//	ft_printf("width 5 prec 0:			[%5.0d]\n", 0);
-//	printf("width 5 prec 0:			[%5.0d]\n", 0);
+	ft_printf("42:				[%d]\n", 42);
+	printf("42:				[%d]\n", 42);
 //	ft_printf("width 4 prec.:			[%4.d]\n", 0);
 //	printf("width 4 prec.:			[%4.d]\n", 0);
 //	ft_printf("m: 0 width 10:			[%010d]\n", 0);
