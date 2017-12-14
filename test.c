@@ -15,7 +15,7 @@
 #include "includes/libftprintf.h"
 #include <locale.h>
 
-int main()
+int main(int ac, char **av)
 {
 	int *b = 47;
 	setlocale(LC_ALL, "");
@@ -77,91 +77,95 @@ int main()
 
 	
 /* ----------------------- s, S ------------------------- */
-//	printf("plus:				[%+s]\n", "Hello");
-//	ft_printf("plus:				[%+s]\n", "Hello");
-//	printf("width 10:			[%10s]\n", "Hello");
-//	ft_printf("width 10:			[%10s]\n", "Hello");
-//	printf("0 width 10:			[%010s]\n", "Hello");
-//	ft_printf("0 width 10:			[%010s]\n", "Hello");
-//	printf("-0 width 10:			[%-010s]\n", "Hello");
-//	ft_printf("-0 width 10:			[%-010s]\n", "Hello");
-//	printf("minus and width 10:		[%-10s]\n", "Hello");
-//	ft_printf("minus and width 10:		[%-10s]\n", "Hello");
-//	printf("space:				[% s]\n", "Hello");
-//	ft_printf("space:				[% s]\n", "Hello");
-//	printf("hash:				[%#s]\n", "Hello");
-//	ft_printf("hash:				[%#s]\n", "Hello");
-//	printf("precyzja 1:			[%.1s]\n", "Hello");
-//	ft_printf("precyzja 1:			[%.1s]\n", "Hello");
-//	printf("width 10 prec 1:		[%10.1s]\n", "Hello");
-//	ft_printf("width 10 prec 1:		[%10.1s]\n", "Hello");
-//	printf("width 10 prec -3:		[%10.-3s]\n", "Hello");
-//	ft_printf("width 10 prec -3:		[%10.-3s]\n", "Hello");
-//	printf("width 10 prec 6:		[%10.6s]\n", "Hello");
-//	ft_printf("width 10 prec 6:		[%10.6s]\n", "Hello");
-//	printf("hh:				[%hhs]\n", "Hello");
-//	ft_printf("hh:				[%hhs]\n", "Hello");
-//	printf("h:				[%hs]\n", "Hello");
-//	ft_printf("h:				[%hs]\n", "Hello");
-//	printf("ll:				[%lls]\n", "Hello");
-//	ft_printf("ll:				[%lls]\n", "Hello");
-//	printf("l:				[%ls]\n", "Hello");
-//	ft_printf("l:				[%ls]\n", "Hello");
-//	printf("z:				[%zs]\n", "Hello");
-//	ft_printf("z:				[%zs]\n", "Hello");
-//	printf("j:				[%js]\n", "Hello");
-//	ft_printf("j:				[%js]\n", "Hello");
-//	printf("empty:				[%s]\n", "");
-//	ft_printf("empty:				[%s]\n", "");
-//	printf("null:				[%s]\n", NULL);
-//	ft_printf("null:				[%s]\n", NULL);
-	printf("their:	[%s]\n", "100% des gens qui parlent à Ly adorent Ly.");
-	ft_printf("mine:	[%s]\n", "100% des gens qui parlent à Ly adorent Ly.");
-	printf("their:	[%s]\n", "갔갔갔갔갔갔갔갔갔갔갔갔갔갔갔갔갔갔갔갔");
-	ft_printf("mine:	[%s]\n", "갔갔갔갔갔갔갔갔갔갔갔갔갔갔갔갔갔갔갔갔");
-
+	printf("plus:				[%+s]\n", "Hello");
+	ft_printf("plus:				[%+s]\n", "Hello");
+	printf("width 10:			[%10s]\n", "Hello");
+	ft_printf("width 10:			[%10s]\n", "Hello");
+	printf("0 width 10:			[%010s]\n", "Hello");
+	ft_printf("0 width 10:			[%010s]\n", "Hello");
+	printf("-0 width 10:			[%-010s]\n", "Hello");
+	ft_printf("-0 width 10:			[%-010s]\n", "Hello");
+	printf("minus and width 10:		[%-10s]\n", "Hello");
+	ft_printf("minus and width 10:		[%-10s]\n", "Hello");
+	printf("space:				[% s]\n", "Hello");
+	ft_printf("space:				[% s]\n", "Hello");
+	printf("hash:				[%#s]\n", "Hello");
+	ft_printf("hash:				[%#s]\n", "Hello");
+	printf("precyzja 1:			[%.1s]\n", "Hello");
+	ft_printf("precyzja 1:			[%.1s]\n", "Hello");
+	printf("width 10 prec 1:		[%10.1s]\n", "Hello");
+	ft_printf("width 10 prec 1:		[%10.1s]\n", "Hello");
+	printf("width 10 prec -3:		[%10.-3s]\n", "Hello");
+	ft_printf("width 10 prec -3:		[%10.-3s]\n", "Hello");
+	printf("width 10 prec 6:		[%10.6s]\n", "Hello");
+	ft_printf("width 10 prec 6:		[%10.6s]\n", "Hello");
+	printf("hh:				[%hhs]\n", "Hello");
+	ft_printf("hh:				[%hhs]\n", "Hello");
+	printf("h:				[%hs]\n", "Hello");
+	ft_printf("h:				[%hs]\n", "Hello");
+	printf("ll:				[%lls]\n", "Hello");
+	ft_printf("ll:				[%lls]\n", "Hello");
+	printf("l:				[%ls]\n", "Hello");
+	ft_printf("l:				[%ls]\n", "Hello");
+	printf("z:				[%zs]\n", "Hello");
+	ft_printf("z:				[%zs]\n", "Hello");
+	printf("j:				[%js]\n", "Hello");
+	ft_printf("j:				[%js]\n", "Hello");
+	printf("empty:				[%s]\n", "");
+	ft_printf("empty:				[%s]\n", "");
+	printf("null:				[%s]\n", NULL);
+	ft_printf("null:				[%s]\n", NULL);
+	printf("@@:				[%S]\n", L"AA");
+	ft_printf("@@:				[%S]\n", L"AA");
+	printf("their chinise:			[%S]\n", L"갔갔");
+	ft_printf("mine	chinise q:		[%qS]\n", L"갔갔");
+	printf("[%s]\n", "100% des gens qui parlent à Ly adorent Ly.");
+	ft_printf("[%s]\n", "100% des gens qui parlent à Ly adorent Ly.");
+	printf("[%s]\n", "갔갔갔갔갔갔갔갔갔갔갔갔갔갔갔갔갔갔갔갔");
+	ft_printf("[%qs]\n", "갔갔갔갔갔갔갔갔갔갔갔갔갔갔갔갔갔갔갔갔");
 
 /* --------------------- c, C -------------------------- */
-	printf("plus:				[%+c]\n", 113);
-	ft_printf("plus:				[%+c]\n", 113);
-	printf("width 10:			[%10c]\n", 'H');
-	ft_printf("width 10:			[%10c]\n", 'H');
-	printf("minus and width 10:		[%-10c]\n", 'H');
-	ft_printf("minus and width 10:		[%-10c]\n", 'H');
-	printf("hash:				[%#c]\n", 'H');
-	ft_printf("hash:				[%#c]\n", 'H');
-	printf("prec 1:				[%.1c]\n", 'H');
-	ft_printf("prec 1:				[%.1c]\n", 'H');
-	printf("prec 0:				[%.0c]\n", 'H');
-	ft_printf("prec 0:				[%.0c]\n", 'H');
-	printf("prec -1:			[%.-1c]\n", 'H');
-	ft_printf("prec -1:			[%.-1c]\n", 'H');
-	printf("width 10 prec 1:		[%10.1c]\n", 'H');
-	ft_printf("width 10 prec 1:		[%10.1c]\n", 'H');
-	printf("width 10 prec 6:		[%10.6c]\n", 'H');
-	ft_printf("width 10 prec 6:		[%10.6c]\n", 'H');
-	printf("hh:				[%hhc]\n", 'H');
-	ft_printf("hh:				[%hhc]\n", 'H');
-	printf("normal:				[%c]\n", L'à');
-	ft_printf("normal:				[%c]\n", L'à');
-	printf("h:				[%hc]\n", 'H');
-	ft_printf("h:				[%hc]\n", 'H');
-	printf("ll:				[%llc]\n", 'H');
-	ft_printf("ll:				[%llc]\n", 'H');
-	printf("l:				[%lc]\n", 'H');
-	ft_printf("l:				[%lc]\n", 'H');
-	printf("z:				[%zc]\n", 'H');
-	ft_printf("z:				[%zc]\n", 'H');
-	printf("j:				[%jc]\n", 'H');
-	ft_printf("j:				[%jc]\n", 'H');
-	printf("finger:				[%C ]\n", L'☞');
-	ft_printf("finger:				[%C ]\n", L'☞');
-	printf("brick:				[%lc ]\n", L'☲');
-	ft_printf("brick:				[%C ]\n", L'☲');
-	printf("chinise:			[%S]\n", L"갔갔");
-	ft_printf("chinise:			[%S]\n", L"갔갔");
-	printf("spring:				[%C]\n", L'꒺');
-	ft_printf("spring:				[%C]\n", L'꒺');
+//	printf("plus:				[%+c]\n", 113);
+//	ft_printf("plus:				[%+c]\n", 113);
+//	printf("width 10:			[%10c]\n", 'H');
+//	ft_printf("width 10:			[%10c]\n", 'H');
+//	printf("minus and width 10:		[%-10c]\n", 'H');
+//	ft_printf("minus and width 10:		[%-10c]\n", 'H');
+//	printf("hash:				[%#c]\n", 'H');
+//	ft_printf("hash:				[%#c]\n", 'H');
+//	printf("prec 1:				[%.1c]\n", 'H');
+//	ft_printf("prec 1:				[%.1c]\n", 'H');
+//	printf("prec 0:				[%.0c]\n", 'H');
+//	ft_printf("prec 0:				[%.0c]\n", 'H');
+//	printf("prec -1:			[%.-1c]\n", 'H');
+//	ft_printf("prec -1:			[%.-1c]\n", 'H');
+//	printf("width 10 prec 1:		[%10.1c]\n", 'H');
+//	ft_printf("width 10 prec 1:		[%10.1c]\n", 'H');
+//	printf("width 10 prec 6:		[%10.6c]\n", 'H');
+//	ft_printf("width 10 prec 6:		[%10.6c]\n", 'H');
+//	printf("hh:				[%hhc]\n", 'H');
+//	ft_printf("hh:				[%hhc]\n", 'H');
+//	printf("normal:				[%c]\n", L'à');
+//	ft_printf("normal:				[%c]\n", L'à');
+//	printf("h:				[%hc]\n", 'H');
+//	ft_printf("h:				[%hc]\n", 'H');
+//	printf("ll:				[%llc]\n", 'H');
+//	ft_printf("ll:				[%llc]\n", 'H');
+//	printf("l:				[%lc]\n", 'H');
+//	ft_printf("l:				[%lc]\n", 'H');
+//	printf("z:				[%zc]\n", 'H');
+//	ft_printf("z:				[%zc]\n", 'H');
+//	printf("j:				[%jc]\n", 'H');
+//	ft_printf("j:				[%jc]\n", 'H');
+//	printf("finger:				[%C ]\n", L'☞');
+//	ft_printf("finger:				[%C ]\n", L'☞');
+//	printf("brick:				[%C ]\n", L'☲');
+//	ft_printf("brick:				[%C ]\n", L'☲');
+
+//	printf("spring:				[%C]\n", L'꒺');
+//	ft_printf("spring:				[%C]\n", L'꒺');
+//	printf("C:				[%C]\n", 'A');
+//	ft_printf("C:				[%C]\n", 'A');
 
 
 	
@@ -306,8 +310,12 @@ int main()
 	
 	
 /* ---------------------- F, f -------------------------- */
+//	printf("-2147483649:			[%F]\n", -2147483649.0);
+//	ft_printf("-2147483649:			[%F]\n", -2147483649.0);
+//	printf("-2147483648:			[%F]\n", -2147483648.0);
+//	ft_printf("-2147483648:			[%F]\n", -2147483648.0);
 //	printf("t: normal:				% \n");
-//	ft_printf("m: normal:			% ");
+//	ft_printf("m: normal:			% \n");
 //	printf("plus:				[%+f]\n", 12.12);
 //	ft_printf("plus:				[%+f]\n", 12.12);
 //	printf("prec 1:				[%.1f]\n", 12.12);
@@ -346,7 +354,7 @@ int main()
 //	ft_printf("z:				[%zf]\n", 12.12);
 //	printf("j:				[%jf]\n", 12.12);
 //	ft_printf("j:				[%jf]\n", 12.12);
-//	printf("%s GREEN STARTS HERE\nwidth 10 prec -1:		[%010.-1f]\n", GREEN, 12.44);
+//	printf("width 10 prec -1:		[%010.-1f]\n", 12.44);
 //	ft_printf("width 10 prec -1:		[%010.-1f]\n", 12.44);
 //	printf("0 width 10 prec 1:		[%010.1f]\n", 12.44);
 //	ft_printf("0 width 10 prec 1:		[%010.1f]\n", 12.44);
@@ -357,7 +365,7 @@ int main()
 //	printf("width 10 prec -6:		[%10.-6f]\n", 12.44);
 //	ft_printf("width 10 prec -6:		[%10.-6f]\n", 12.44);
 //	printf("number 0:			[%f]\n", 0.0);
-//	ft_printf("%sBACK TO NORMAL COLOR\nnumber 0:			[%f]\n", NORMAL, 0.0);
+//	ft_printf("number 0:			[%f]\n", 0.0);
 //	printf("width 10 prec 2:		[%10.2f]\n", 1.99);
 //	ft_printf("width 10 prec 2:		[%10.2f]\n", 1.99);
 //	printf("width 10 prec 6:		[%10.6f]\n", 1.9999);
@@ -379,8 +387,7 @@ int main()
 //	printf("width 10 prec -6:		[%10.-6f]\n", 1.5);
 //	ft_printf("width 10 prec -6:		[%10.-6f]\n", 1.5);
 //	printf("width 10 prec -6:		[%10.-6f]\n", 1.49);
-//	ft_printf("width 10 prec -6:		[%10.-6f]\n", 1.4);
-
+//	ft_printf("width 10 prec -6:		[%10.-6f]\n", 1.49);
 	
 	
 /* ---------------------- X, x -------------------------- */

@@ -60,25 +60,33 @@ void	print_string(t_flags *bag, va_list ap)
 		ft_putchar(' ', bag);
 }
 
+int			ft_wclen(wchar_t *ws)
+{
+	int	len;
+	
+	len = 0;
+	while (ws[len])
+	{
+		if (ws[len] > 0xFF)
+			return (-1);
+		len++;
+	}
+	return (len);
+}
+
 char	*convert_wide(wchar_t *str, int len)
 {
 	char	*new;
-
+	int		i;
+	
+	i = 0;
 	new = (char *)malloc(len + 1);
-	if (!len)
-		*new = *str;
-	else
+	while (i < len)
 	{
-		if (len < 2)
-			*new++ = 0xC0 | (*str >> 6);
-		else if (len < 3)
-			*new++ = 0xE0 | (*str >> 12);
-		else
-			*new++ = 0xF0 | (*str >> 18);
-		while (len-- > 0)
-			*new++ = 0x80 | ((*str >> (len * 6)) & 0x3F);
+		new[i] = (char)str[i];
+		i++;
 	}
-	*new = '\0';
+	new[i] = '\0';
 	return (new);
 }
 
@@ -87,12 +95,12 @@ void	print_wchar_str(t_flags *bag, va_list ap)
 	char	*str;
 	wchar_t* wstr;
 
-	wstr = va_arg(ap, wchar_t*);
-	str = ARGUMENT == 7 ? convert_uni(*wstr++) : convert_wide(wstr, ft_strlen((char *)wstr));
-	
-	while (*wstr != '\0')
+	wstr = (wchar_t *)va_arg(ap, wchar_t *);
+	str = ARGUMENT == 7 ? convert_uni(*wstr++) : convert_wide(wstr, ft_wclen(wstr));
+	if (ft_wclen(wstr) == -1 && ARGUMENT != 7)
+		return ;
+	while (*wstr != '\0' && ARGUMENT == 7)
 		str = ft_strjoin(str, convert_uni(*wstr++));
-	
 	LEN = ft_strlen(str);
 	parse(bag);
 	if (MINUS == false)
