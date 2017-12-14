@@ -29,12 +29,10 @@ void	flags(char *f, int *i, t_flags *bag)
 		}
 		if (f[*i] == '#')
 			HASH = true;
-		if (f[*i] == '0')
-			if (MINUS == false)
-				ZERO = true;
-		if (f[*i] == ' ')
-			if (PLUS == false)
-				SPACE = true;
+		if (f[*i] == '0' && MINUS == false)
+			ZERO = true;
+		if (f[*i] == ' ' && PLUS == false)
+			SPACE = true;
 		*i += 1;
 	}
 }
@@ -69,9 +67,10 @@ void	precision(char *f, int *i, t_flags *bag, va_list ap)
 	PRECISION = 0;
 	if (f[*i] != '.')
 		return ;
-	IF_PREC = true;
 	*i += 1;
-	while (f[*i] != '\0' &&  (f[*i] == '-' || f[*i] == '*' || (f[*i] > 47 && f[*i] < 58)))
+	IF_PREC = true;
+	while (f[*i] != '\0' && (f[*i] == '-' || f[*i] == '*' ||
+			(f[*i] > 47 && f[*i] < 58)))
 	{
 		if (f[*i] == '*')
 		{
@@ -89,50 +88,43 @@ void	precision(char *f, int *i, t_flags *bag, va_list ap)
 }
 
 /*
- ** bag->argument may egual:
- ** - 1 if h appears;
- ** - 2 if hh appears;
- ** - 3 if l appears;
- ** - 4 if ll appears;
- ** - 5 if j appears;
- ** - 6 if z appears;
- */
+** bag->argument may egual:
+** - 1 if h appears;
+** - 2 if hh appears;
+** - 3 if l appears;
+** - 4 if ll appears;
+** - 5 if j appears;
+** - 6 if z appears;
+*/
 
 void	arguments(char *f, int *i, t_flags *bag)
 {
-	while (f[*i] != '\0' && (f[*i] == 'h' || f[*i] == 'l' || f[*i] == 'z' || f[*i] == 'j'))
+	while (f[*i] != '\0' && (f[*i] == 'h' || f[*i] == 'l' || f[*i] == 'z' ||
+			f[*i] == 'j' || f[*i] == 'q'))
 	{
 		if (f[*i] == 'h' && ARGUMENT == 1)
 			ARGUMENT = 2;
-		else
-			if (f[*i] == 'h')
-				ARGUMENT = 1;
-		else
-			if (f[*i] == 'l' && ARGUMENT == 3)
-				ARGUMENT = 4;
-		else
-			if (f[*i] == 'l')
-				ARGUMENT = 3;
-		else
-			if (f[*i] == 'j')
-				ARGUMENT = 5;
-		else
-			if (f[*i] == 'z')
-				ARGUMENT = 6;
+		else if (f[*i] == 'h')
+			ARGUMENT = 1;
+		else if (f[*i] == 'l' && ARGUMENT == 3)
+			ARGUMENT = 4;
+		else if (f[*i] == 'l')
+			ARGUMENT = 3;
+		else if (f[*i] == 'j')
+			ARGUMENT = 5;
+		else if (f[*i] == 'z')
+			ARGUMENT = 6;
+		else if (f[*i] == 'q')
+			ARGUMENT = 7;
 		*i += 1;
 	}
 }
 
-void	type(char type, t_flags *bag)
+void	type(char t, t_flags *bag)
 {
-
-	
-	if (type == 'd' || type == 's' || type == 'S' || type == 'p' || type == 'D' ||
-		type == 'i' || type == 'o' || type == 'O' || type == 'u' || type == 'X' ||
-		type == 'U' || type == 'x' || type == 'c' || type == 'C' || type == 'E' ||
-		type == 'e' || type == 'f' || type == 'F' || type == '%' || type == 'b')
-		TYPE = type;
-//	if ((type == 'S') || (type == 's' && ARGUMENT == 3))
-//		exit(0);
+	if (t == 'd' || t == 's' || t == 'S' || t == 'p' || t == 'D' ||
+		t == 'i' || t == 'o' || t == 'O' || t == 'u' || t == 'X' ||
+		t == 'U' || t == 'x' || t == 'c' || t == 'C' || t == 'E' ||
+		t == 'e' || t == 'f' || t == 'F' || t == '%' || t == 'b')
+		TYPE = t;
 }
-

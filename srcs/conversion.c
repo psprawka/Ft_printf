@@ -78,7 +78,7 @@ char	*convert_octal(unsigned long int nb)
 char	*convert_uni(wchar_t wide)
 {
 	char *new = ft_strnew(5);
-	
+
 	if (wide < 0x80)
 		new[0] = ((wide >> 0) & 0x7F) | 0x00;
 	else if (wide < 0x800)

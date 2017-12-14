@@ -18,7 +18,7 @@ void	ft_putchar(char c, t_flags *bag)
 	bag->ret += 1;
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*f;
 	int		i;
@@ -46,7 +46,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 void	ft_putstr(char const *s, t_flags *bag)
 {
 	int	i;
-	
+
 	i = 0;
 	while (s[i])
 		ft_putchar(s[i++], bag);
@@ -54,8 +54,8 @@ void	ft_putstr(char const *s, t_flags *bag)
 
 int		ft_strcmp(char *s1, char *s2)
 {
-	int		i;
-	
+	int	i;
+
 	i = 0;
 	while (s1[i] || s2[i])
 	{
@@ -68,8 +68,8 @@ int		ft_strcmp(char *s1, char *s2)
 
 int		ft_strlen(char *str)
 {
-	int		i;
-	
+	int	i;
+
 	i = 0;
 	while (str[i] != '\0')
 		i++;
@@ -78,57 +78,48 @@ int		ft_strlen(char *str)
 
 char	*ft_strnew(size_t size)
 {
-	char	*tab;
-	int		i;
-//
+	char			*tab;
+	unsigned int	i;
+
 	i = 0;
 	if (!(tab = (char *)malloc(size + 1)))
 		return (NULL);
-//	return (ft_memalloc(size + 1));
-//	size++;
 	while (i < size + 1)
 		tab[i++] = '\0';
 	return (tab);
 }
 
-
 void	*ft_memset(void *buffer, int c, size_t num)
 {
 	char	*tab;
-	
+
 	tab = (char *)buffer;
 	while (num--)
 		*tab++ = c;
 	return (buffer);
 }
 
-
 void	*ft_memalloc(size_t size)
 {
 	void	*tab;
-	
+
 	if (!(tab = (void *)malloc(size)))
 		return (NULL);
 	ft_memset(tab, 0, size);
 	return (tab);
 }
 
-
 char	*ft_strrev(char *str)
 {
 	char *rev;
 	int i;
 	int x;
-	
+
 	x = 0;
-	i = 0;
-	rev = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
-	while (str[i] != '\0')
-		i++;
-	i--;
-	while (i > -1)
-		rev[x++] = str[i--];
-	
+	i = ft_strlen(str);
+	rev = (char *)malloc(sizeof(char) * (i + 1));
+	while (--i > -1)
+		rev[x++] = str[i];
 	rev[x] = '\0';
 	return (rev);
 }
@@ -136,7 +127,7 @@ char	*ft_strrev(char *str)
 
 void	ft_putnbr(long int nb, t_flags *bag)
 {
-	if (nb == -9223372036854775807 - 1)
+	if (nb == LL_MIN)
 	{
 		ft_putstr("-9223372036854775808", bag);
 		return ;

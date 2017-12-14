@@ -53,3 +53,17 @@ void	print_hash(t_flags *bag, unsigned long long int nb)
 	
 	HASH = false;
 }
+
+void	print_perc(t_flags *bag)
+{
+	int	width;
+	
+	width = 0;
+	if (MINUS == false)
+		while (width++ < WIDTH - 1)
+			ZERO == true ? ft_putchar('0', bag) : ft_putchar(' ', bag);
+	ft_putchar('%', bag);
+	if (MINUS == true)
+		while (width++ < WIDTH - 1)
+			ZERO == true ? ft_putchar('0', bag) : ft_putchar(' ', bag);
+}

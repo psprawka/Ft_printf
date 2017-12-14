@@ -10,9 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/libftprintf.h"
+
 static int	change(char *str, char *num, int len)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while ((str[i] == ' ') || (str[i] == '\n') || (str[i] == '\t')
@@ -53,7 +55,7 @@ int			ft_atoi(char *str)
 	}
 	if (num[0] == '-')
 		nb = nb - nb - nb;
-	if (nb > 9223372036854775807 || nb < -9223372036854775807 - 1)
+	if (nb > LL_MAX || nb < LL_MIN)
 		return (0);
 	return (nb);
 }
