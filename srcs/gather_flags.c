@@ -74,6 +74,7 @@ void	precision(char *f, int *i, t_flags *bag, va_list ap)
 	{
 		if (f[*i] == '*')
 		{
+			STAR = true;
 			PRECISION = va_arg(ap, int);
 			*i += 1;
 		}

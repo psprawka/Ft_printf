@@ -48,6 +48,7 @@ void	bulid_bag(t_flags *bag)
 	bag->zero = false;
 	bag->ifprec = false;
 	bag->display = true;
+	bag->star = false;
 	bag->type = 0;
 	bag->width = 0;
 	bag->precision = 0;

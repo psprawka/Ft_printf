@@ -18,6 +18,7 @@
 
 void	parse_ptr(t_flags *bag)
 {
+	DISPLAY = (IF_PREC == true && PRECISION == 0) ? false : true;
 	HASH = true;
 	MINUS = PRECISION < 0 ? true : MINUS;
 	PRECISION -= LEN;
@@ -33,6 +34,7 @@ void	print_pointer(t_flags *bag, va_list ap)
 
 	nb = va_arg(ap, unsigned long long int);
 	print = convert(bag, nb);
+	
 	LEN = ft_strlen(print);
 	parse_ptr(bag);
 	if (ZERO == true)
@@ -42,7 +44,8 @@ void	print_pointer(t_flags *bag, va_list ap)
 	print_hash(bag, nb);
 	while (PRECISION-- > 0)
 		ft_putchar('0', bag);
-	ft_putstr(print, bag);
+	if (DISPLAY == true)
+		ft_putstr(print, bag);
 	while (WIDTH-- > 0)
 		ft_putchar(' ', bag);
 	free(print);

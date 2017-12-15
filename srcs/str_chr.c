@@ -48,27 +48,29 @@ void	print_string(t_flags *bag, va_list ap)
 
 void	print_wchar_str(t_flags *bag, va_list ap)
 {
-	char	*str;
-	wchar_t	*wstr;
-
-	wstr = (wchar_t *)va_arg(ap, wchar_t *);
-	str = ARGUMENT == 7 ? convert_uni(*wstr++) : conv_w(wstr, ft_wstrlen(wstr));
-	if (ft_wstrlen(wstr) == -1 && ARGUMENT != 7)
+	char	*s;
+	wchar_t	*ws;
+	
+	ws = (wchar_t *)va_arg(ap, wchar_t *);
+	if (ws == NULL || *ws == '\0')
+		s = ws == NULL ? "(null)" : '\0';
+	else
+		s = ARGUMENT == 7 ? convert_uni(*ws++) : convert_ws(ws, ft_wstrlen(ws));
+	if (ws != NULL && ft_wstrlen(ws) == -1 && ARGUMENT != 7)
 	{
-		free(str);
+		free(s);
 		return ;
 	}
-	while (*wstr != '\0' && ARGUMENT == 7)
-		str = ft_strjoin(str, convert_uni(*wstr++));
-	LEN = ft_strlen(str);
+	while (ws != NULL && *ws != '\0' && ARGUMENT == 7)
+		s = ft_strjoin(s, convert_uni(*ws++));
+	LEN = s == NULL ? 0 : ft_strlen(s);
 	parse(bag);
 	while (MINUS == false && WIDTH-- > 0)
 		ZERO == true ? ft_putchar('0', bag) : ft_putchar(' ', bag);
-	while (LEN-- > 0 && *str != '\0')
-		ft_putchar(*str++, bag);
+	while (LEN-- > 0 && *s != '\0')
+		ft_putchar(*s++, bag);
 	while (WIDTH-- > 0)
 		ft_putchar(' ', bag);
-	free(str);
 }
 
 /*

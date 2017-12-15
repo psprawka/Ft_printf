@@ -12,7 +12,7 @@
 
 #include "../includes/libftprintf.h"
 
-char	*conv_w(wchar_t *str, int len)
+char	*convert_ws(wchar_t *str, int len)
 {
 	char	*new;
 	int		i;

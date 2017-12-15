@@ -62,6 +62,7 @@
 # define SPACE		bag->space
 # define HASH		bag->hash
 # define IF_PREC	bag->ifprec
+# define STAR		bag->star
 # define DISPLAY	bag->display
 # define TYPE		bag->type
 # define WIDTH		bag->width
@@ -78,6 +79,7 @@ typedef struct		s_flags
 	bool	hash;
 	bool	ifprec;
 	bool	display;
+	bool	star;
 	char	type;
 	int		width;
 	int		precision;
@@ -136,7 +138,7 @@ void				precision(char *f, int *i, t_flags *bag, va_list ap);
 void				arguments(char *f, int *i, t_flags *bag);
 void				type(char type, t_flags *bag);
 
-char				*conv_w(wchar_t *str, int len);
+char				*convert_ws(wchar_t *str, int len);
 char				*convert(t_flags *bag, long long int nb);
 char				*convert_binary(unsigned long int nb);
 char				*convert_octal(unsigned long int nb);
