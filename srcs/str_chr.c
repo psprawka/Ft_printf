@@ -20,8 +20,13 @@ void	parse(t_flags *bag)
 {
 	ZERO = PRECISION < 0 ? false : ZERO;
 	LEN = (PRECISION < LEN && IF_PREC == true) ? PRECISION : LEN;
+	WIDTH = WIDTH < 0 && TYPE == 'c' ? WIDTH * -1 : WIDTH;
 	WIDTH = (PRECISION < 0) ? PRECISION * -1 : WIDTH - LEN;
-	WIDTH = (TYPE == 'c' && PRECISION < 0) ? 0 : WIDTH;
+	WIDTH = (TYPE == 'c' && PRECISION < 0) ? (PRECISION * -1) - 1 : WIDTH;
+	MINUS = (TYPE == 'c' && PRECISION < 0) ? true : MINUS;
+	if (IF_PREC == true && PRECISION == 0 && TYPE == 'c')
+		WIDTH--;
+	
 }
 
 /*

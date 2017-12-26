@@ -18,13 +18,16 @@
 
 void	parse_ptr(t_flags *bag)
 {
+//	printf("\nlen: %d, width: %d, prec: %d\n", LEN, WIDTH,  PRECISION);
 	DISPLAY = (IF_PREC == true && PRECISION == 0) ? false : true;
 	HASH = true;
 	MINUS = PRECISION < 0 ? true : MINUS;
+//	printf("len: %d, width: %d, prec: %d\n", LEN, WIDTH,  PRECISION);
+	WIDTH = (PRECISION < 0) ? PRECISION * -1 - LEN - 2 : WIDTH - (LEN + 2);
 	PRECISION -= LEN;
-	WIDTH -= (PRECISION > 0) ? (2 + LEN + PRECISION) : LEN + 2;
 	ZERO = (IF_PREC == true) ? false : ZERO;
-	WIDTH = PRECISION * -1 > WIDTH ? PRECISION * -1 - (LEN + 4) : WIDTH;
+//	printf("len: %d, width: %d, prec:  %d\n", LEN, WIDTH,  PRECISION);
+//	WIDTH -= PRECISION;
 }
 
 void	print_pointer(t_flags *bag, va_list ap)
@@ -37,6 +40,7 @@ void	print_pointer(t_flags *bag, va_list ap)
 	
 	LEN = ft_strlen(print);
 	parse_ptr(bag);
+
 	if (ZERO == true)
 		print_hash(bag, nb);
 	while (MINUS == false && WIDTH-- > 0)

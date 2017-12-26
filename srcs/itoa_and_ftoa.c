@@ -107,7 +107,7 @@ void	create_string(double nb, char *rest, int i)
 		while (afterdots < 6)
 		{
 			nb *= 10;
-			if (((int)(nb + 0.000001)) != 10)
+			if (((int)(nb + 0.00000)) != 10)
 				rest[i++] = (int)(nb + 48 + 0.000001);
 			nb -= (int)nb;
 			afterdots++;

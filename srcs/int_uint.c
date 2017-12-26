@@ -64,8 +64,6 @@ void			parse_int(t_flags *bag, long int nb)
 	LEN = (nb == 0 && IF_PREC == true ? 0 : ft_strlen(len));
 	free(len);
 	nb < 0 ? LEN-- : LEN;
-//	WIDTH = PRECISION < 0 ? PRECISION * -1 : WIDTH;
-//	printf("zero: %d, width: %d, prec: %d\n", ZERO, WIDTH,  PRECISION);
 	MINUS = WIDTH < 0 || (PRECISION < 0 && STAR == false) ? true : MINUS;
 	WIDTH = WIDTH < 0 ? WIDTH * -1 : WIDTH;
 	PRECISION = PRECISION < 0 && STAR == false ? PRECISION * -1 : PRECISION;
@@ -73,7 +71,6 @@ void			parse_int(t_flags *bag, long int nb)
 	WIDTH -= PRECISION > 0 ? PRECISION + LEN : LEN;
 	PLUS == true || nb < 0 ? WIDTH-- : WIDTH;
 	ZERO = (IF_PREC == true) && STAR == false ? false : ZERO;
-//	printf("minus: %d, zero: %d, width: %d, prec: %d\n", MINUS, ZERO, WIDTH,  PRECISION);
 	WIDTH = SPACE == true && WIDTH < 1 && nb > 0 ? 1 : WIDTH;
 	SPACE = nb < 0 ? false : SPACE;
 }
@@ -84,8 +81,6 @@ void			print_int(t_flags *bag, va_list ap)
 
 	nb = assign_value(bag, ap);
 	parse_int(bag, nb);
-//	printf("WID: %d, PREC: %d, LEN: %d\n", WIDTH, PRECISION, LEN);
-//	printf("zero: %d, width: %d, prec: %d\n", ZERO, WIDTH,  PRECISION);
 	if (ZERO == true)
 		print_plus(bag, &nb);
 	if (SPACE == true && WIDTH--)
@@ -125,8 +120,8 @@ void			print_unsigned_int(t_flags *bag, va_list ap)
 	char					*print;
 
 	nb = assign_value(bag, ap);
-//	printf("[[[HERE nb: %llo]]]\n", nb); 
-	print = (nb > LL_MAX && (TYPE == 'u' || TYPE == 'U')) ? ft_ulltoa(nb) : convert(bag, nb);
+	print = (nb > LL_MAX && (TYPE == 'u' || TYPE == 'U'))
+	? ft_ulltoa(nb) : convert(bag, nb);
 	LEN = nb == 0 ? 0 : ft_strlen(print);
 	parse_unsigned_int(bag);
 	if (ZERO == true)
