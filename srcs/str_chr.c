@@ -61,7 +61,7 @@ void	print_wchar_str(t_flags *bag, va_list ap)
 	parse(bag);
 	if (TYPE == 'S')
 	{
-		while ((i < ft_wstrlen(ws)) && (PRECISION ? (i < PRECISION) : 1))
+		while (ws[i])
 			write(1, &ws[i++], 1);
 		return ;
 	}
