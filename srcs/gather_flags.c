@@ -128,4 +128,6 @@ void	type(char t, t_flags *bag)
 		t == 'U' || t == 'x' || t == 'c' || t == 'C' || t == 'E' ||
 		t == 'e' || t == 'f' || t == 'F' || t == '%' || t == 'b')
 		TYPE = t;
+	else
+		TYPE = -1;
 }

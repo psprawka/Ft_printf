@@ -75,7 +75,7 @@ void	gather_flags(char *f, int *i, t_flags *bag, va_list ap)
 
 void	print_argument(t_flags *bag, va_list ap)
 {
-	if (TYPE == '%')
+	if (TYPE == '%' || TYPE == -1)
 		print_perc(bag);
 	else if (TYPE == 'S')
 		print_wchar_str(bag, ap);
@@ -114,7 +114,7 @@ int		solve(char *format, va_list ap)
 			ret += i - start;
 			bulid_bag(&bag);
 			gather_flags(format, &i, &bag, ap);
-			bag.type == 0 ? i : i++;
+			bag.type == 0 || bag.type == -1 ? i : i++;
 			print_argument(&bag, ap);
 			ret += bag.ret;
 			start = i;

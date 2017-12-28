@@ -100,9 +100,9 @@ char	*convert_uni(wchar_t wide)
 	}
 	else if (wide < 0x10000)
 	{
-		new[2] = ((wide >> 0) & 0x3F) | 0x80;
 		new[0] = ((wide >> 12) & 0x0F) | 0xE0;
 		new[1] = ((wide >> 6) & 0x3F) | 0x80;
+		new[2] = ((wide >> 0) & 0x3F) | 0x80;
 	}
 	else if (wide < 0x10FFFF)
 	{

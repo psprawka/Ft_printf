@@ -53,7 +53,8 @@ void	print_perc(t_flags *bag)
 	width = 0;
 	while (MINUS == false && width++ < WIDTH - 1)
 		ZERO == true ? ft_putchar('0', bag) : ft_putchar(' ', bag);
-	ft_putchar('%', bag);
+	if (bag->type != -1)
+		ft_putchar('%', bag);
 	while (width++ < WIDTH - 1)
 		ZERO == true ? ft_putchar('0', bag) : ft_putchar(' ', bag);
 }
