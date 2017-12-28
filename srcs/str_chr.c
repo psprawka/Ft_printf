@@ -37,7 +37,11 @@ void	print_string(t_flags *bag, va_list ap)
 {
 	char	*str;
 
-	write(1, "dustin is always right\n", 30);
+	if (ARGUMENT == 3)
+	{
+		print_wchar_str(bag, ap);
+		return ;
+	}
 	str = va_arg(ap, char *);
 	str = (str == NULL ? "(null)" : str);
 	if (colors(str, bag) == 1)
