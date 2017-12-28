@@ -64,7 +64,7 @@ void	print_wchar_str(t_flags *bag, va_list ap)
 	
 	ws = (wchar_t *)va_arg(ap, size_t);
 	parse(bag);
-	if (TYPE == 'S')
+	if (ARGUMENT != 7)
 	{
 		while (ws[i])
 			write(1, &ws[i++], 1);
