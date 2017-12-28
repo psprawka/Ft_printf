@@ -58,12 +58,12 @@ void	print_wchar_str(t_flags *bag, va_list ap)
 	int		i = 0;
 	
 	ws = (wchar_t *)va_arg(ap, wchar_t *);
+	parse(bag);
 	if (TYPE == 'S')
 	{
-		while (ws[i] != '\0')
+		while ((i < LEN) && (PRECISION ? (i < PRECISION) : 1))
 			write(1, &ws[i++], 1);
 		return ;
-		
 	}
 	if (ws == NULL || *ws == '\0')
 		s = ws == NULL ? "(null)" : '\0';
