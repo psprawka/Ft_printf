@@ -57,7 +57,7 @@ void	print_wchar_str(t_flags *bag, va_list ap)
 	wchar_t	*ws;
 	int		i = 0;
 	
-	ws = (wchar_t *)va_arg(ap, wchar_t *);
+	ws = (wchar_t *)va_arg(ap, size_t);
 	parse(bag);
 	if (TYPE == 'S')
 	{
