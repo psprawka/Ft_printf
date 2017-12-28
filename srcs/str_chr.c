@@ -37,6 +37,7 @@ void	print_string(t_flags *bag, va_list ap)
 {
 	char	*str;
 
+	write(1, "dustin is always right\n", 30);
 	str = va_arg(ap, char *);
 	str = (str == NULL ? "(null)" : str);
 	if (colors(str, bag) == 1)
@@ -61,7 +62,6 @@ void	print_wchar_str(t_flags *bag, va_list ap)
 	parse(bag);
 	if (TYPE == 'S')
 	{
-		write(1, "I HATE YOU\n", 10);
 		while (ws[i])
 			write(1, &ws[i++], 1);
 		return ;
