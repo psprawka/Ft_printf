@@ -59,12 +59,13 @@ void	print_wchar_str(t_flags *bag, va_list ap)
 	
 	ws = (wchar_t *)va_arg(ap, size_t);
 	parse(bag);
-//	if (TYPE == 'S')
-//	{
+	if (TYPE == 'S')
+	{
+		write(1, "I HATE YOU\n", 10);
 		while (ws[i])
 			write(1, &ws[i++], 1);
 		return ;
-//	}
+	}
 	if (ws == NULL || *ws == '\0')
 		s = ws == NULL ? "(null)" : '\0';
 	else
