@@ -101,7 +101,7 @@ void	print_float(t_flags *bag, va_list ap)
 	LEN = ft_strlen(print);
 	print = parse_flt(bag, print);
 	nb < 0 ? WIDTH++ : i--;
-	if (MINUS == false && WIDTH-- > 0)
+	while (MINUS == false && WIDTH-- > 0)
 		ZERO == true ? ft_putchar('0', bag) : ft_putchar(' ', bag);
 	print_plus(bag, (long int *)&nb);
 	while (print[i] != '.' && print[i] != '\0')
