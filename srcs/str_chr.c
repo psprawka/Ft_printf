@@ -60,7 +60,7 @@ void	print_wchar_str(t_flags *bag, va_list ap)
 	if (ws == NULL || *ws == '\0')
 		s = ws == NULL ? "(null)" : '\0';
 	else
-		s = ARGUMENT == 7 ? convert_uni(*ws++) : convert_ws(ws, ft_wstrlen(ws));
+		s = ARGUMENT == 7 ? convert_uni(*ws++) : (char *)ws;
 	if (ws != NULL && ft_wstrlen(ws) == -1 && ARGUMENT != 7)
 	{
 		free(s);
