@@ -38,8 +38,8 @@ int		ft_wstrlen(wchar_t *ws)
 	len = 0;
 	while (ws[len])
 	{
-		if (ws[len] > 0xFF)
-			return (-1);
+//		if (ws[len] > 0xFF)
+//			return (-1);
 		len++;
 	}
 	return (len);
