@@ -61,16 +61,9 @@ void	print_wchar_str(t_flags *bag, va_list ap)
 	wchar_t	*ws;
 
 	ws = (wchar_t *)va_arg(ap, wchar_t *);
-	if (ARGUMENT != 7)
-	{
-		if (ws == NULL)
-			ft_putstr("(null)", bag);
-		else
-			while (*ws != '\0')
-				write(1, ws++, 1);
+	if (if_unicode(bag, ws) == -1)
 		return ;
-	}
-	s = *ws == '\0' ? s = "\0" : convert_uni(*ws++);
+	s = *ws == '\0' ? "\0" : convert_uni(*ws++);
 	if (ws != NULL && ft_wstrlen(ws) == -1 && ARGUMENT != 7)
 	{
 		free(s);

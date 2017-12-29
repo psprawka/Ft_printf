@@ -113,7 +113,6 @@ int					ft_printf(const char *format, ...);
 
 long int			ft_atoi(char *str);
 
-
 /*
 ** printf functions:
 */
@@ -146,4 +145,5 @@ char				*convert_hex(unsigned long int nb, char type);
 char				*convert_uni(wchar_t wide);
 
 int					colors(char *s, t_flags *bag);
+int					if_unicode(t_flags *bag, wchar_t *ws);
 #endif

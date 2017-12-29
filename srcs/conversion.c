@@ -75,14 +75,15 @@ char	*convert_octal(unsigned long int nb)
 	int		i;
 
 	i = 0;
-	print = ft_memalloc(20);
+	print = ft_memalloc(22);
 	if (nb == 0)
-		print[i] = '0';
+		print[i++] = '0';
 	while (nb != 0)
 	{
 		print[i++] = (nb % 8) + 48;
 		nb /= 8;
 	}
+	print[i] = '\0';
 	return (ft_strrev(print));
 }
 

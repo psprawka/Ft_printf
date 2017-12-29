@@ -25,6 +25,7 @@ FILES =	atoi_and_ulltoa.c \
 		indirect_ft.c \
 		ft_libft1.c \
 		ft_libft2.c \
+		ft_libftprintf.c \
 		
 
 CFLAGS = -Wall -Wextra -Werror

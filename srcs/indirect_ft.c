@@ -13,39 +13,6 @@
 #include "../includes/libftprintf.h"
 
 /*
-** ------------------------- LIBFTPRINTF FUNCTIONS -----------------------------
-*/
-
-void	ft_putchar(char c, t_flags *bag)
-{
-	write(1, &c, 1);
-	bag->ret += 1;
-}
-
-void	ft_putstr(char const *s, t_flags *bag)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-		ft_putchar(s[i++], bag);
-}
-
-int		ft_wstrlen(wchar_t *ws)
-{
-	int	len;
-
-	len = 0;
-	while (ws[len])
-	{
-		if (ws[len] > 0xFF)
-			return (-1);
-		len++;
-	}
-	return (len);
-}
-
-/*
 ** -------------------------- INDIRECT FUNCTIONS -------------------------------
 */
 
