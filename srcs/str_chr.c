@@ -70,10 +70,7 @@ void	print_wchar_str(t_flags *bag, va_list ap)
 				write(1, ws++, 1);
 		return ;
 	}
-	if (*ws == '\0')
-		s = '\0';
-	else
-		s = convert_uni(*ws++);
+	s = *ws == '\0' ? s = "\0" : convert_uni(*ws++);
 	if (ws != NULL && ft_wstrlen(ws) == -1 && ARGUMENT != 7)
 	{
 		free(s);
