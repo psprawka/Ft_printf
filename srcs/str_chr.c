@@ -26,7 +26,6 @@ void	parse(t_flags *bag)
 	MINUS = (TYPE == 'c' && PRECISION < 0) ? true : MINUS;
 	if (IF_PREC == true && PRECISION == 0 && TYPE == 'c')
 		WIDTH--;
-	
 }
 
 /*
@@ -60,18 +59,19 @@ void	print_wchar_str(t_flags *bag, va_list ap)
 {
 	char	*s;
 	wchar_t	*ws;
-	int		i = 0;
-	
-	ws = (wchar_t *)va_arg(ap, size_t);
-	parse(bag);
+
+	ws = (wchar_t *)va_arg(ap, wchar_t *);
 	if (ARGUMENT != 7)
 	{
-		while (ws[i])
-			write(1, &ws[i++], 1);
+		if (ws == NULL)
+			ft_putstr("(null)", bag);
+		else
+			while (*ws != '\0')
+				write(1, ws++, 1);
 		return ;
 	}
-	if (ws == NULL || *ws == '\0')
-		s = ws == NULL ? "(null)" : '\0';
+	if (*ws == '\0')
+		s = '\0';
 	else
 		s = ARGUMENT == 7 ? convert_uni(*ws++) : (char *)ws;
 	if (ws != NULL && ft_wstrlen(ws) == -1 && ARGUMENT != 7)

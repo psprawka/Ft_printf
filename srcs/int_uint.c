@@ -46,7 +46,7 @@ long long int	assign_value(t_flags *bag, va_list ap)
 	if (TYPE == 'd' || TYPE == 'i')
 		return ((int)va_arg(ap, void*));
 	if (TYPE == 'U' || TYPE == 'O')
-		return ((unsigned long long int)va_arg(ap, void*));//
+		return ((unsigned long long int)va_arg(ap, void*));
 	if (TYPE == 'u' || TYPE == 'o' || TYPE == 'X' || TYPE == 'x')
 		return ((unsigned int)va_arg(ap, void*));
 	return ((long long int)NULL);
@@ -59,7 +59,7 @@ long long int	assign_value(t_flags *bag, va_list ap)
 void			parse_int(t_flags *bag, long int nb)
 {
 	char	*len;
-	
+
 	len = ft_itoa(nb);
 	LEN = (nb == 0 && IF_PREC == true ? 0 : ft_strlen(len));
 	free(len);
