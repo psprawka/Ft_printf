@@ -6,11 +6,11 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 14:32:10 by psprawka          #+#    #+#             */
-/*   Updated: 2017/11/08 14:32:13 by psprawka         ###   ########.fr       */
+/*   Updated: 2019/09/14 22:01:23 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libftprintf.h"
+#include "libftprintf.h"
 
 /*
 ** argument prototype: %[flags][width/margin][.precision][hh|h|l|ll|j|z]type
@@ -96,7 +96,7 @@ void	print_argument(t_flags *bag, va_list ap)
 		print_unsigned_int(bag, ap);
 }
 
-int		solve(char *format, va_list ap)
+int		printf_solve(char *format, va_list ap)
 {
 	int		i;
 	int		ret;
@@ -131,7 +131,7 @@ int		ft_printf(const char *format, ...)
 	int			ret;
 
 	va_start(ap, format);
-	ret = solve((char *)format, ap);
+	ret = printf_solve((char *)format, ap);
 	va_end(ap);
 	return (ret);
 }

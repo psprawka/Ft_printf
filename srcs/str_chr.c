@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_string_char.c                                   :+:      :+:    :+:   */
+/*   str_chr.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/27 11:34:05 by psprawka          #+#    #+#             */
-/*   Updated: 2017/11/27 11:34:07 by psprawka         ###   ########.fr       */
+/*   Updated: 2019/09/14 22:55:32 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libftprintf.h"
+#include "libftprintf.h"
 
 /*
 ** print_width prints both precision and width for either characher or string
 */
 
-void	parse(t_flags *bag)
+void	printf_parse(t_flags *bag)
 {
 	ZERO = PRECISION < 0 ? false : ZERO;
 	LEN = (PRECISION < LEN && IF_PREC == true) ? PRECISION : LEN;
@@ -46,13 +46,13 @@ void	print_string(t_flags *bag, va_list ap)
 	if (colors(str, bag) == 1)
 		return ;
 	LEN = ft_strlen(str);
-	parse(bag);
+	printf_parse(bag);
 	while (MINUS == false && WIDTH-- > 0)
-		ZERO == true ? ft_putchar('0', bag) : ft_putchar(' ', bag);
+		ZERO == true ? ftp_putchar('0', bag) : ftp_putchar(' ', bag);
 	while (LEN-- > 0 && *str != '\0')
-		ft_putchar(*str++, bag);
+		ftp_putchar(*str++, bag);
 	while (WIDTH-- > 0)
-		ft_putchar(' ', bag);
+		ftp_putchar(' ', bag);
 }
 
 void	print_wchar_str(t_flags *bag, va_list ap)
@@ -61,24 +61,24 @@ void	print_wchar_str(t_flags *bag, va_list ap)
 	wchar_t	*ws;
 
 	ws = (wchar_t *)va_arg(ap, wchar_t *);
-	if (if_unicode(bag, ws) == -1)
+	if (ftp_if_unicode(bag, ws) == -1)
 		return ;
-	s = *ws == '\0' ? "\0" : convert_uni(*ws++);
+	s = *ws == '\0' ? "\0" : ft_convert_uni(*ws++);
 	if (ws != NULL && ft_wstrlen(ws) == -1 && ARGUMENT != 7)
 	{
 		free(s);
 		return ;
 	}
 	while (ws != NULL && *ws != '\0' && ARGUMENT == 7)
-		s = ft_strjoin(s, convert_uni(*ws++));
+		s = ft_strjoin(s, ft_convert_uni(*ws++), 1);
 	LEN = s == NULL ? 0 : ft_strlen(s);
-	parse(bag);
+	printf_parse(bag);
 	while (MINUS == false && WIDTH-- > 0)
-		ZERO == true ? ft_putchar('0', bag) : ft_putchar(' ', bag);
+		ZERO == true ? ftp_putchar('0', bag) : ftp_putchar(' ', bag);
 	while (LEN-- > 0 && *s != '\0')
-		ft_putchar(*s++, bag);
+		ftp_putchar(*s++, bag);
 	while (WIDTH-- > 0)
-		ft_putchar(' ', bag);
+		ftp_putchar(' ', bag);
 }
 
 /*
@@ -91,12 +91,12 @@ void	print_char(t_flags *bag, va_list ap)
 
 	x = (unsigned char)va_arg(ap, int);
 	LEN = 1;
-	parse(bag);
+	printf_parse(bag);
 	while (MINUS == false && WIDTH-- > 0)
-		ZERO == true ? ft_putchar('0', bag) : ft_putchar(' ', bag);
-	ft_putchar(x, bag);
+		ZERO == true ? ftp_putchar('0', bag) : ftp_putchar(' ', bag);
+	ftp_putchar(x, bag);
 	while (WIDTH-- > 0)
-		ft_putchar(' ', bag);
+		ftp_putchar(' ', bag);
 }
 
 void	print_wchar(t_flags *bag, va_list ap)
@@ -105,13 +105,13 @@ void	print_wchar(t_flags *bag, va_list ap)
 	wchar_t	wx;
 
 	wx = va_arg(ap, wint_t);
-	x = convert_uni((wchar_t)(wx));
+	x = ft_convert_uni((wchar_t)(wx));
 	LEN = 1;
-	parse(bag);
+	printf_parse(bag);
 	while (MINUS == false && WIDTH-- > 0)
-		ZERO == true ? ft_putchar('0', bag) : ft_putchar(' ', bag);
-	ft_putstr(x, bag);
+		ZERO == true ? ftp_putchar('0', bag) : ftp_putchar(' ', bag);
+	ftp_putstr(x, bag);
 	while (WIDTH-- > 0)
-		ft_putchar(' ', bag);
+		ftp_putchar(' ', bag);
 	free(x);
 }

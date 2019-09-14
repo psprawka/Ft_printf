@@ -6,37 +6,36 @@
 #    By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/24 11:51:37 by psprawka          #+#    #+#              #
-#    Updated: 2017/10/07 20:04:53 by psprawka         ###   ########.fr        #
+#    Updated: 2019/09/14 23:40:03 by psprawka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 NAME = libftprintf.a
+FLAGS += -g -Wall -Wextra -Werror
+# FLAGS +=  -fsanitize=address
+
 SRC_DIR = srcs/
-FILES =	atoi_and_ulltoa.c \
-		ft_printf.c \
+FILES =	ft_printf.c \
 		print.c \
-		conversion.c \
 		gather_flags.c \
-		itoa_and_ftoa.c \
 		str_chr.c \
 		ptr_dbl.c \
 		int_uint.c \
-		indirect_ft.c \
-		ft_libft1.c \
-		ft_libft2.c \
+		tools.c \
 		ft_libftprintf.c \
 		
 
-CFLAGS = -Wall -Wextra -Werror
 HEAD = ./includes
-SRC	:=	$(addprefix $(SRC_DIR)/, $(FILES))
+SRC	:=	$(addprefix $(SRC_DIR), $(FILES))
 OBJ = $(SRC:.c=.o)
 
-BUILD_PRINT = @echo "\033[0;33mBuilding \"$<\"..."
-DONE = @echo "\033[0;32mFt_printf ready to use!"
-CLEAN_O = @echo "\033[0;32mObject files removed!"
-CLEAN_A = @echo "\033[0;32mExecutable removed!"
+LIBFT 		= libft/libft.a
+
+BUILD_PRINT = @echo "\r\033[38;5;214m[FT_PRINTF] \x1B[33mBuilding $<"
+DONE = @echo "\033[K\033[1;38;5;226mFT_PRINTF ready to use!\x1B[0m"
+CLEAN_O = @echo "\033[38;5;246mObject files removed! [FT_PRINTF]\x1B[0m"
+CLEAN_A = @echo "\033[38;5;246mExecutable removed! [FT_PRINTF]\x1B[0m"
 
 all: $(NAME)
 
@@ -47,7 +46,6 @@ $(NAME): $(OBJ)
 $(OBJ): %.o: %.c
 	$(BUILD_PRINT)
 	@gcc $(CFLAGS) -I $(HEAD) -c $< -o $@
-
 
 clean:
 	@/bin/rm -rf $(OBJ)
