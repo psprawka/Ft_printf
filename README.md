@@ -1,7 +1,6 @@
 # Ft_printf - recreating printf functionality ⚙️
-Because I'm bored of ft_putstr :sunglasses:
 
-Actually, I was just not allowed to use printf in my school projects, so I recoded my own. This project covers implementation of a C laguage feature – variadic functions. It also includes practice detailed management of the printing options via dispatch tables (which I unfortunately did not implement in this project when I was a beginner - I know, shame on me).
+Because I'm bored of ft_putstr :sunglasses: Actually, no. I was just not allowed to use printf in my school projects, so I recoded my own. This project covers implementation of a C laguage feature – variadic functions. It also includes practice detailed management of the printing options via dispatch tables (which I unfortunately did not implement in this project when I was a beginner - I know, shame on me 😳).
 </br></br>
 
 ### Ft_printf argument prototype & features I handle:
@@ -34,7 +33,7 @@ git clone https://github.com/psprawka/Ft_printf.git 42SV_ft_printf
 cd 42SV_ft_printf
 make
 ```
-This will create a static library - `libftprintf.a` - which you need to include to the project that you need ft_printf in. 🔧
+This will create a static library - `libftprintf.a` - which you just need to include to the project that you need ft_printf in. 🔧
 </br></br>
 
 ### My grade for ft_printf project:
