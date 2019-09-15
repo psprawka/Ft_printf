@@ -3,7 +3,7 @@
 Because I'm bored of ft_putstr :sunglasses: Actually, no. I was just not allowed to use printf in my school projects, so I recoded my own. This project covers implementation of a C laguage feature – variadic functions. It also includes practice detailed management of the printing options via dispatch tables (which I unfortunately did not implement in this project when I was a beginner - I know, shame on me 😳).
 </br></br>
 
-### Ft_printf argument prototype & features I handle:
+## Ft_printf argument prototype & features I handle:
 
  Argument prototype: ```%[flags][width/margin][.precision][hh|h|l|ll|j|z]type```, where:
 * **flags**:		`+ || - ||`</pre>`   `</pre>`|| # || 0`;
@@ -26,7 +26,7 @@ Because I'm bored of ft_putstr :sunglasses: Actually, no. I was just not allowed
   - `q`:	for `CS` - prints Unicode
 </br></br>
 
-### How to run ft_printf?
+## How to run ft_printf?
 Copy and paste to your terminal following text:
 ```
 git clone https://github.com/psprawka/Ft_printf.git 42SV_ft_printf
@@ -36,7 +36,7 @@ make
 This will create a static library - `libftprintf.a` - which you just need to include to the project that you need ft_printf in. 🔧
 </br></br>
 
-### My grade for ft_printf project:
+## My grade for ft_printf project:
 <p float="left">
   <img src="imgs/grade.png" width="30%"/>
 </p>
